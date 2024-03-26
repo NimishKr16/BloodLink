@@ -17,6 +17,9 @@ class Admin(db.Model):
     Password = db.Column(db.String(255), nullable=False)
     Email = db.Column(db.String(100), unique=True, nullable=False)
 
+    def __repr__(self):
+        return f"<{self.Username} | {self.Password} | {self.Email}>"
+
 # --- User Table --- #
 class User(db.Model):
     __tablename__ = 'users'
@@ -61,13 +64,53 @@ def find_donor():
 @app.route('/donateBlood')
 def donate():
     return render_template('donate.html')
-    
+
+# ----- Signup routes for each user type ------ #
+@app.route('/donor/signup', methods=['GET', 'POST'])
+def donor_signup():
+    ...
+
+@app.route('/recipient/signup', methods=['GET', 'POST'])
+def recipient_signup():
+    ...
+
+@app.route('/admin/signup', methods=['GET', 'POST'])
+def admin_signup():
+    ...
+
+# ------- Login routes for each user type -------- # 
+@app.route('/donor/login', methods=['GET', 'POST'])
+def donor_login():
+    ...
+
+@app.route('/recipient/login', methods=['GET', 'POST'])
+def recipient_login():
+    ...
+
+@app.route('/admin/login', methods=['GET', 'POST'])
+def admin_login():
+    ...
+
+with app.app_context():
+    db.create_all()
+
+# with app.app_context():
+#     db.session.add(admin1)
+#     db.session.add(admin2)
+#     db.session.commit()
+#     db.create_all()
 
 
-def create_db(app, db):
-    with app.app_context():
-        db.create_all()
 
 if __name__ == '__main__':
+    with app.app_context():
+        admins = Admin.query.filter().all()
+        for admin in admins:
+            print(admin)
     # create_db(app, db)
     app.run(debug=True,port=5500)
+
+
+# !DO NOT HAMPER ADMIN CREDENTIALS:
+# * admin1 = Admin(Username="Admin1", Password="nimish123", Email="nimish@gmail.com")
+# * admin2 = Admin(Username="Admin2", Password="archish123", Email="archish@gmail.com")
