@@ -217,7 +217,7 @@ button:hover {
   background-color: #0056b3;
 }
 
-.open-button {
+/* .open-button {
   padding: 12px 24px;
   background-color: #007bff;
   color: #fff;
@@ -226,7 +226,7 @@ button:hover {
   font-size: 18px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-}
+} */
 
 .open-button:hover {
   background-color: #0056b3;
