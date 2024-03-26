@@ -7,7 +7,7 @@ app.config['SECRET_KEY'] = 'BloodLink_DBMS123'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bloodbank.db'
 db = SQLAlchemy(app)
 
-# --------- Database Models --------- #
+# * --------- Database Models --------- #
 
 # --- Admin Table --- #
 class Admin(db.Model):
@@ -52,7 +52,7 @@ class Recipient(db.Model):
     RequestStatus = db.Column(db.Boolean, nullable=False) # True:Fulfilled, False:Pending
 
 
-# --------- App Routes --------- #
+# * --------- App Routes --------- #
 @app.route('/')
 def home():
     return render_template('home.html')
@@ -65,7 +65,7 @@ def find_donor():
 def donate():
     return render_template('donate.html')
 
-# ----- Signup routes for each user type ------ #
+# * ----- Signup routes for each user type ------ #
 @app.route('/donor/signup', methods=['GET', 'POST'])
 def donor_signup():
     ...
@@ -74,11 +74,8 @@ def donor_signup():
 def recipient_signup():
     ...
 
-@app.route('/admin/signup', methods=['GET', 'POST'])
-def admin_signup():
-    ...
 
-# ------- Login routes for each user type -------- # 
+# * ------- Login routes for each user type -------- # 
 @app.route('/donor/login', methods=['GET', 'POST'])
 def donor_login():
     ...
@@ -94,6 +91,7 @@ def admin_login():
 with app.app_context():
     db.create_all()
 
+
 # with app.app_context():
 #     db.session.add(admin1)
 #     db.session.add(admin2)
@@ -102,15 +100,17 @@ with app.app_context():
 
 
 
-if __name__ == '__main__':
+def print_admins(app, Admin):
     with app.app_context():
         admins = Admin.query.filter().all()
         for admin in admins:
             print(admin)
-    # create_db(app, db)
+
+if __name__ == '__main__':
+    # print_admins(app, Admin)
     app.run(debug=True,port=5500)
 
 
-# !DO NOT HAMPER ADMIN CREDENTIALS:
-# * admin1 = Admin(Username="Admin1", Password="nimish123", Email="nimish@gmail.com")
+# ! ------------ DO NOT HAMPER ADMIN CREDENTIALS --------- :
+# * @admin1 = Admin(Username="Admin1", Password="nimish123", Email="nimish@gmail.com")
 # * admin2 = Admin(Username="Admin2", Password="archish123", Email="archish@gmail.com")
