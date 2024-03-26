@@ -20,7 +20,11 @@ def donate():
     return render_template('donate.html')
     
 
-if __name__ == '__main__':
+
+def create_db(app, db):
     with app.app_context():
         db.create_all()
+
+if __name__ == '__main__':
+    create_db(app, db)
     app.run(debug=True,port=5500)
