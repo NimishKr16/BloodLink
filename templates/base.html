@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home-BloodLink</title>
-</head>
-<link rel="stylesheet" href="../static/styles/base.css">
-<nav class="navbar">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %} Home-BloodLink {% endblock %}</title>
+  </head>
+  <link rel="stylesheet" href="../static/styles/base.css" />
+  <nav class="navbar">
     <div class="container">
-      <a href="#" id = "nav-brand" class="logo">🩸BloodLink</a>
+      <a href="#" id="nav-brand" class="logo">🩸BloodLink</a>
       <ul class="nav-links">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Donate Blood</a></li>
-        <li><a href="#">Find Donor</a></li>
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="{{ url_for('donate') }}">Donate Blood</a></li>
+        <li><a href="{{ url_for('find_donor') }}">Find Donor</a></li>
         <li class="dropdown">
           <a href="#" class="dropbtn">More</a>
           <div class="dropdown-content">
@@ -24,18 +24,9 @@
       </ul>
     </div>
   </nav>
-  
-<body>
-    <div id="home-text">
-        <h1>Discover <span style="color: red;">BloodLink!</span></h1>
-        <h2>Your Gateway to Life-Saving Connections. <br>
-            Join us as we unite donors and recipients, <br>
-            transforming compassion into life-saving acts: <br>
-            <span style="color: red;">ONE DROP AT A TIME.🩸</span></h2>
-    </div>
-    <div id="home-img-container">
-        <img id="home-img" src="../static/images/image.png" alt="home-img">
-    </div>
+  <body>
     
-</body>
+    {% block content %} {% endblock %}
+    
+  </body>
 </html>
