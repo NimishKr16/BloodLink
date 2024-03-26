@@ -20,16 +20,174 @@
             <a href="#">Appointments</a>
           </div>
         </li>
-        <li><a href="#">Login</a></li>
+        <li>
+          <a href="#" onclick="openPopup('popup')" class="open-button">Login</a>
+        </li>
       </ul>
     </div>
   </nav>
   <body>
+  <!-- ! Login/Signup Popup -->
+<div id="popup" class="popup">
+  <div class="popup-content">
+      <span class="close" onclick="closePopup()">&times;</span>
+      <div class="form-container">
+          <h2>Login</h2>
+          <form id="loginForm" action="/login" method="post">
+              <div class="form-group">
+                  <label for="userType">User Type</label>
+                  <select id="signup-userType" name="signup-userType">
+                      <option value="donor">Donor</option>
+                      <option value="recipient">Recipient</option>
+                  </select>
+              </div>
+              <div class="form-group">
+                  <label for="username">Username</label>
+                  <input type="text" id="login-uname" name="login-uname" required>
+              </div>
+              <div class="form-group">
+                  <label for="password">Password</label>
+                  <input type="password" id="login-pass" name="login-pass" required>
+              </div>
+              <button type="submit">Login</button>
+          </form>
+          <div class="signup-link">
+              <p>Don't have an account? <a href="#" onclick="openSignupPopup()">Signup</a></p>
+          </div>
+          <div class="admin-login-link">
+              <p>Work @BloodLink? <a href="#" onclick="openAdminLoginPopup()">Admin Login</a></p>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- ! Signup Popup -->
+<div id="signupPopup" class="popup">
+  <div class="popup-content">
+      <span class="close" onclick="closePopup()">&times;</span>
+      <div class="form-container">
+          <h2>Signup</h2>
+          <form id="signupForm" action="/signup" method="post">
+              <div class="form-group">
+                  <label for="userType">User Type</label>
+                  <select id="userType" name="userType">
+                      <option value="donor">Donor</option>
+                      <option value="recipient">Recipient</option>
+                  </select>
+              </div>
+              <div class="form-group">
+                  <label for="username">Username</label>
+                  <input type="text" id="signup-uname" name="signup-uname" required>
+              </div>
+              <div class="form-group">
+                  <label for="password">Set Password</label>
+                  <input type="password" id="signup-pass" name="signup-pass" required>
+              </div>
+              <div class="form-group">
+                  <label for="confirmPassword">Confirm Password</label>
+                  <input type="password" id="confirmPassword" name="confirmPassword" required>
+              </div>
+                  <div class="form-group">
+                  <label for="bloodGroup">Blood Group</label>
+                  <select id="bloodGroup" name="bloodGroup" required>
+                      <option value="">Select</option>
+                      <option value="A+">A+</option>
+                      <option value="A-">A-</option>
+                      <option value="B+">B+</option>
+                      <option value="B-">B-</option>
+                      <option value="AB+">AB+</option>
+                      <option value="AB-">AB-</option>
+                      <option value="O+">O+</option>
+                      <option value="O-">O-</option>
+                  </select>
+              </div>
+
+              <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="email" required>
+              </div>
+              <div class="form-group">
+                  <label for="address">Residential Address</label>
+                  <textarea id="address" name="address" rows="3" required></textarea>
+              </div>
+              <button type="submit">Signup</button>
+          </form>
+      </div>
+  </div>
+</div>
+
+<!-- ! Admin Login Popup -->
+<div id="adminLoginPopup" class="popup">
+  <div class="popup-content">
+      <span class="close" onclick="closePopup()">&times;</span>
+      <div class="form-container">
+          <h2>Admin Login</h2>
+          <form id="adminLoginForm" action="/admin/login" method="post">
+              <div class="form-group">
+                  <label for="adminUsername">Username</label>
+                  <input type="text" id="adminUsername" name="adminUsername" required>
+              </div>
+              <div class="form-group">
+                  <label for="adminPassword">Password</label>
+                  <input type="password" id="adminPassword" name="adminPassword" required>
+              </div>
+              <button type="submit">Login</button>
+          </form>
+      </div>
+  </div>
+</div>
+
+<script>
+
+window.onclick = function(event) {
+    var popups = document.getElementsByClassName('popup');
+    for (var i = 0; i < popups.length; i++) {
+        if (event.target == popups[i]) {
+            closePopup(popups[i].id);
+        }
+    }
+}
+
+function openPopup(id) {
+    document.getElementById(id).style.display = "block";
+}
+
+function closePopup(id) {
+    document.getElementById(id).style.display = "none";
+}
+
+function openSignupPopup() {
+    openPopup("signupPopup");
+}
+
+function openAdminLoginPopup() {
+    openPopup("adminLoginPopup");
+}
+
+function validatePassword() {
+    var password = document.getElementById("password").value;
+    var confirmPassword = document.getElementById("confirmPassword").value;
+    var errorMessage = document.getElementById("passwordError");
+    if (password != confirmPassword) {
+        errorMessage.innerHTML = "Passwords do not match";
+        return false;
+    } else {
+        errorMessage.innerHTML = "";
+        return true;
+    }
+}
+
+document.querySelectorAll('.popup-content .close').forEach(function(button) {
+    button.addEventListener('click', function() {
+        var popup = this.closest('.popup');
+        closePopup(popup.id);
+    });
+});
+
+</script>
     
-    {% block content %} {% endblock %}
+  {% block content %} {% endblock %}
     
   </body>
-  <footer>
-    <a href="#" id="admin-text">Work @BloodLink? Admin Login</a>
-  </footer>
+  
 </html>
