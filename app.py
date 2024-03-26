@@ -7,6 +7,10 @@ app.config['SECRET_KEY'] = 'BloodLink_DBMS123'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bloodbank.db'
 db = SQLAlchemy(app)
 
+@app.route('/')
+def home():
+    return render_template("base.html")
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
