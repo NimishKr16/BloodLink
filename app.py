@@ -86,7 +86,25 @@ def recipient_login():
 
 @app.route('/admin/login', methods=['GET', 'POST'])
 def admin_login():
-    ...
+    admin_username = request.form.get('adminUsername')
+    password = request.form.get('adminPassword')
+    admin = Admin.query.filter_by(Username=admin_username).first()
+    if not admin:
+        return "Incorrect username of password"
+    if admin and admin.Password == password:
+        session['admin_logged_in'] = True
+        session['admin_username'] = admin_username
+        # Authentication successful
+        print("Admin Login Successful!")
+        return redirect(url_for('admin_dash'))
+    else:
+        # Authentication failed, redirect back to login page
+        return "Incorrect username of password"
+
+# * --- ADMIN DASHBOARD --- #
+@app.route('/admin/dashboard')
+def admin_dash():
+    return render_template('admin_dash.html')
 
 with app.app_context():
     db.create_all()
