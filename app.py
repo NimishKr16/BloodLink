@@ -96,15 +96,35 @@ def admin_login():
         session['admin_username'] = admin_username
         # Authentication successful
         print("Admin Login Successful!")
-        return redirect(url_for('admin_dash'))
+        #return render_template('admin_dash.html', username=admin_username)
+        return redirect(url_for('admin_dash',admin_username = admin_username))
     else:
         # Authentication failed, redirect back to login page
         return "Incorrect username of password"
 
 # * --- ADMIN DASHBOARD --- #
-@app.route('/admin/dashboard')
-def admin_dash():
-    return render_template('admin_dash.html')
+@app.route('/admin/dashboard/<admin_username>')
+def admin_dash(admin_username):
+    if 'admin_logged_in' in session and session['admin_logged_in']:
+        return render_template('admin_dash.html', username=admin_username)
+    else:
+        return redirect(url_for('admin_login'))  # Redirect to login if not logged in
+
+
+
+# * ---- LOGOUT ROOT ----
+@app.route('/logout')
+def logout():
+    # Clear session variables
+    if 'logged_in' in session:
+        print("Logged out user")
+        session.pop('logged_in', None)
+        session.pop('username', None)
+    elif 'admin_logged_in' in session:
+        print("Logged out Admin")
+        session.pop('admin_logged_in', None)
+        session.pop('admin_username', None)
+    return redirect(url_for('home'))
 
 with app.app_context():
     db.create_all()
