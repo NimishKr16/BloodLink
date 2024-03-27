@@ -96,17 +96,17 @@ def admin_login():
         session['admin_username'] = admin_username
         # Authentication successful
         print("Admin Login Successful!")
-        #return render_template('admin_dash.html', username=admin_username)
-        return redirect(url_for('admin_dash',admin_username = admin_username))
+        # return render_template('admin_dash.html')
+        return redirect(url_for('admin_dash'))
     else:
         # Authentication failed, redirect back to login page
         return "Incorrect username of password"
 
 # * --- ADMIN DASHBOARD --- #
-@app.route('/admin/dashboard/<admin_username>')
-def admin_dash(admin_username):
+@app.route('/admin/dashboard')
+def admin_dash():
     if 'admin_logged_in' in session and session['admin_logged_in']:
-        return render_template('admin_dash.html', username=admin_username)
+        return render_template('admin_dash.html')
     else:
         return redirect(url_for('admin_login'))  # Redirect to login if not logged in
 
