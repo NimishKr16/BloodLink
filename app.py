@@ -1,7 +1,7 @@
 from flask import Flask, render_template, url_for, redirect, request, session
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
-
+# import flash
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'BloodLink_DBMS123'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bloodbank.db'
@@ -29,6 +29,8 @@ class User(db.Model):
     Email = db.Column(db.String(100), unique=True, nullable=False)
     UserType = db.Column(db.String(20), nullable=False) # Donor/Recipient
     RegistrationDate = db.Column(db.DateTime, nullable=False, default=datetime.now())
+    def __repr__(self):
+        return f"<{self.Username} | {self.Password} | {self.UserType}>"
 
 # --- Donors Table --- #
 class Donor(db.Model):
@@ -39,6 +41,9 @@ class Donor(db.Model):
     LastDonationDate = db.Column(db.Date)
     ContactNumber = db.Column(db.String(15))
     Address = db.Column(db.String(255))
+
+    
+
 
 # --- Recipients Table --- #
 class Recipient(db.Model):
@@ -66,6 +71,46 @@ def donate():
     return render_template('donate.html')
 
 # * ----- Signup routes for each user type ------ #
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    user_type = request.form['userType']
+    username = request.form['signup-uname']
+    password = request.form['signup-pass']
+    confirm_password = request.form['confirmPassword']
+    blood_group = request.form['bloodGroup']
+    email = request.form['email']
+    address = request.form['address']
+    if not all([username, password, email]):
+        return "Please fill out all fields"
+        # flash("Please fill out all fields", "error")
+        #return redirect("/signup")
+    elif password != confirm_password:
+        return "Passwords do not match!"
+        # flash("Passwords do not match!","error")
+        # return redirect("/signup")
+    else:
+        new_user = User(Username=username, Password=password, Email=email, UserType=user_type)
+        user_id = new_user.UserID
+        with app.app_context():
+           db.session.add(new_user)
+           db.session.commit()
+        
+        if user_type=='donor': 
+            db.session.refresh(new_user)
+            new_donor = Donor(UserID=new_user.UserID, Address=address, BloodGroup=blood_group)
+            # new_donor = Donor(UserID = user_id,Address=address, BloodGroup=blood_group)
+            with app.app_context():
+                db.session.add(new_donor)
+                db.session.commit()
+        elif user_type=='recipient':
+            new_recepient = Recipient(Address=address,BloodGroup=blood_group,RequestStatus=False)
+            with app.app_context():
+                db.session.add(new_recepient)
+                db.session.commit()
+        return redirect(url_for('home'))
+    
+
 @app.route('/donor/signup', methods=['GET', 'POST'])
 def donor_signup():
     ...
@@ -83,7 +128,19 @@ def donor_login():
 @app.route('/recipient/login', methods=['GET', 'POST'])
 def recipient_login():
     ...
-
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    user_type = request.form['signup-userType']
+    username = request.form['login-uname']
+    password = request.form['login-pass']
+    found_user = User.query.filter_by(Username=username).first()
+    if not found_user or password != found_user.Password:
+        return 'Incorrect Username or password'
+        # flash('Incorrect Username or password')
+    else:
+        print("Login successful!")
+        return render_template('home.html',username=username)
+    
 @app.route('/admin/login', methods=['GET', 'POST'])
 def admin_login():
     admin_username = request.form.get('adminUsername')
@@ -135,7 +192,10 @@ with app.app_context():
 #     db.session.add(admin2)
 #     db.session.commit()
 #     db.create_all()
-
+with app.app_context():
+    users = User.query.filter().all()
+    for user in users:
+        print(user)
 
 
 def print_admins(app, Admin):
