@@ -60,15 +60,30 @@ class Recipient(db.Model):
 # * --------- App Routes --------- #
 @app.route('/')
 def home():
-    return render_template('home.html')
+    username = None
+    if 'logged_in' in session and session['logged_in'] == True:
+        username = session['username']
+    elif  'admin_logged_in' in session and session['admin_logged_in']==True :
+        username = session['admin_username']
+    return render_template('home.html',username=username)
 
 @app.route('/findDonors')
 def find_donor():
-    return render_template('findDonor.html')
+    username = None
+    if 'logged_in' in session and session['logged_in'] == True:
+        username = session['username']
+    elif  'admin_logged_in' in session and session['admin_logged_in']==True :
+        username = session['admin_username']
+    return render_template('findDonor.html',username=username)
 
 @app.route('/donateBlood')
 def donate():
-    return render_template('donate.html')
+    username = None
+    if 'logged_in' in session and session['logged_in'] == True:
+        username = session['username']
+    elif 'admin_logged_in' in session and session['admin_logged_in']==True :
+        username = session['admin_username']
+    return render_template('donate.html',username=username)
 
 # * ----- Signup routes for each user type ------ #
 
@@ -139,6 +154,8 @@ def login():
         # flash('Incorrect Username or password')
     else:
         print("Login successful!")
+        session['logged_in'] = True
+        session['username'] = username
         return render_template('home.html',username=username)
     
 @app.route('/admin/login', methods=['GET', 'POST'])
