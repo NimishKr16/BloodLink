@@ -9,7 +9,7 @@ db = SQLAlchemy(app)
 
 # * --------- Database Models --------- #
 
-# --- Admin Table --- #
+# * --- Admin Table --- #
 class Admin(db.Model):
     __tablename__ = 'admin'
     AdminID = db.Column(db.Integer, primary_key=True)
@@ -20,19 +20,19 @@ class Admin(db.Model):
     def __repr__(self):
         return f"<{self.Username} | {self.Password} | {self.Email}>"
 
-# --- User Table --- #
+# * --- User Table --- #
 class User(db.Model):
     __tablename__ = 'users'
     UserID = db.Column(db.Integer, primary_key=True)
     Username = db.Column(db.String(50), nullable=False)
     Password = db.Column(db.String(255), nullable=False)
     Email = db.Column(db.String(100), unique=True, nullable=False)
-    UserType = db.Column(db.String(20), nullable=False) # Donor/Recipient
+    UserType = db.Column(db.String(20), nullable=False) # * Donor/Recipient
     RegistrationDate = db.Column(db.DateTime, nullable=False, default=datetime.now())
     def __repr__(self):
         return f"<{self.Username} | {self.Password} | {self.UserType}>"
 
-# --- Donors Table --- #
+# * --- Donors Table --- #
 class Donor(db.Model):
     __tablename__ = 'donors'
     DonorID = db.Column(db.Integer, primary_key=True)
@@ -42,10 +42,11 @@ class Donor(db.Model):
     ContactNumber = db.Column(db.String(15))
     Address = db.Column(db.String(255))
 
-    
+    def __repr__(self):
+        return f"<{self.UserID} | {self.BloodGroup} | {self.Address}>"
 
 
-# --- Recipients Table --- #
+# * --- Recipients Table --- #
 class Recipient(db.Model):
     __tablename__ = 'recipients'
     RecipientID = db.Column(db.Integer, primary_key=True)
@@ -210,12 +211,20 @@ with app.app_context():
 #     db.session.commit()
 #     db.create_all()
 with app.app_context():
+    print('-------- USER DETAILS ---------')
     users = User.query.filter().all()
     for user in users:
         print(user)
 
+with app.app_context():
+    print('-------- DONOR DETAILS ---------')
+    donors = Donor.query.filter().all()
+    for donor in donors:
+        print(donor)
+
 
 def print_admins(app, Admin):
+    print('-------- ADMIN DETAILS ---------')
     with app.app_context():
         admins = Admin.query.filter().all()
         for admin in admins:
