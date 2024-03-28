@@ -86,6 +86,24 @@ def donate():
         username = session['admin_username']
     return render_template('donate.html',username=username)
 
+@app.route('/inventory')
+def inventory():
+    username = None
+    if 'logged_in' in session and session['logged_in'] == True:
+        username = session['username']
+    elif 'admin_logged_in' in session and session['admin_logged_in']==True :
+        username = session['admin_username']
+    return render_template('inventory.html',username=username)
+
+
+@app.route('/appointments')
+def appoint():
+    username = None
+    if 'logged_in' in session and session['logged_in'] == True:
+        username = session['username']
+    elif 'admin_logged_in' in session and session['admin_logged_in']==True:
+        username = session['admin_username']
+    return render_template('appoint.html',username=username)
 # * ----- Signup routes for each user type ------ #
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -120,7 +138,8 @@ def signup():
                 db.session.add(new_donor)
                 db.session.commit()
         elif user_type=='recipient':
-            new_recepient = Recipient(Address=address,BloodGroup=blood_group,RequestStatus=False)
+            db.session.refresh(new_user)
+            new_recepient = Recipient(UserID=new_user.UserID,Address=address,BloodGroup=blood_group,RequestStatus=False)
             with app.app_context():
                 db.session.add(new_recepient)
                 db.session.commit()
@@ -144,6 +163,8 @@ def donor_login():
 @app.route('/recipient/login', methods=['GET', 'POST'])
 def recipient_login():
     ...
+
+# TODO: ------ General User Login ----
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     user_type = request.form['signup-userType']
@@ -183,11 +204,11 @@ def admin_dash():
     if 'admin_logged_in' in session and session['admin_logged_in']:
         return render_template('admin_dash.html')
     else:
-        return redirect(url_for('admin_login'))  # Redirect to login if not logged in
+        return "Must be logged in as an Admin!"  # Redirect to login if not logged in
 
 
 
-# * ---- LOGOUT ROOT ----
+# * ---- LOGOUT ROUTE ---- #
 @app.route('/logout')
 def logout():
     # Clear session variables
@@ -210,28 +231,33 @@ with app.app_context():
 #     db.session.add(admin2)
 #     db.session.commit()
 #     db.create_all()
-with app.app_context():
-    print('-------- USER DETAILS ---------')
-    users = User.query.filter().all()
-    for user in users:
-        print(user)
 
-with app.app_context():
-    print('-------- DONOR DETAILS ---------')
-    donors = Donor.query.filter().all()
-    for donor in donors:
-        print(donor)
+def print_users():
+    with app.app_context():
+        print('-------- USER DETAILS ---------')
+        users = User.query.filter().all()
+        for user in users:
+            print(user)
+
+def print_donors():
+    with app.app_context():
+        print('-------- DONOR DETAILS ---------')
+        donors = Donor.query.filter().all()
+        for donor in donors:
+            print(donor)
 
 
-def print_admins(app, Admin):
+def print_admins():
     print('-------- ADMIN DETAILS ---------')
     with app.app_context():
         admins = Admin.query.filter().all()
         for admin in admins:
             print(admin)
 
+# ! print_users()
+# ! print_donors()
+# ! print_admins()
 if __name__ == '__main__':
-    # print_admins(app, Admin)
     app.run(debug=True,port=5500)
 
 
