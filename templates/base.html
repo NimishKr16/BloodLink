@@ -23,8 +23,8 @@
           </div>
         </li>
         <li>
-          {% if username %}
-          <a href="#" class="open-button">{{ username }}</a>
+          {% if username %} 
+          <a href="{{ url_for('profile', username=username) }}" class="open-button">{{ username }}</a>
           <a href="{{ url_for('logout') }}" class="text-lg" id="loginBtn">(Logout)</a>
           {% else %}
           <a href="#" onclick="openPopup('popup')" class="open-button">Login</a>

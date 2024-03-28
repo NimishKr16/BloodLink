@@ -7,7 +7,7 @@ app.config['SECRET_KEY'] = 'BloodLink_DBMS123'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bloodbank.db'
 db = SQLAlchemy(app)
 
-# * --------- Database Models --------- #
+# * ------------- DATABASE MODELS ------------ #
 
 # * --- Admin Table --- #
 class Admin(db.Model):
@@ -58,52 +58,51 @@ class Recipient(db.Model):
     RequestStatus = db.Column(db.Boolean, nullable=False) # True:Fulfilled, False:Pending
 
 
-# * --------- App Routes --------- #
-@app.route('/')
-def home():
-    username = None
-    if 'logged_in' in session and session['logged_in'] == True:
-        username = session['username']
-    elif  'admin_logged_in' in session and session['admin_logged_in']==True :
-        username = session['admin_username']
-    return render_template('home.html',username=username)
-
-@app.route('/findDonors')
-def find_donor():
-    username = None
-    if 'logged_in' in session and session['logged_in'] == True:
-        username = session['username']
-    elif  'admin_logged_in' in session and session['admin_logged_in']==True :
-        username = session['admin_username']
-    return render_template('findDonor.html',username=username)
-
-@app.route('/donateBlood')
-def donate():
-    username = None
-    if 'logged_in' in session and session['logged_in'] == True:
-        username = session['username']
-    elif 'admin_logged_in' in session and session['admin_logged_in']==True :
-        username = session['admin_username']
-    return render_template('donate.html',username=username)
-
-@app.route('/inventory')
-def inventory():
-    username = None
-    if 'logged_in' in session and session['logged_in'] == True:
-        username = session['username']
-    elif 'admin_logged_in' in session and session['admin_logged_in']==True :
-        username = session['admin_username']
-    return render_template('inventory.html',username=username)
-
-
-@app.route('/appointments')
-def appoint():
+# * -------------- APP ROUTES ------------- #
+    
+# * ---- Check Logged-in ---- #
+def is_logged_in():
     username = None
     if 'logged_in' in session and session['logged_in'] == True:
         username = session['username']
     elif 'admin_logged_in' in session and session['admin_logged_in']==True:
         username = session['admin_username']
+    return username
+
+@app.route('/')
+def home():
+    username = is_logged_in()
+    return render_template('home.html',username=username)
+
+@app.route('/findDonors')
+def find_donor():
+    username = is_logged_in()
+    return render_template('findDonor.html',username=username)
+
+@app.route('/donateBlood')
+def donate():
+    username = is_logged_in()
+    return render_template('donate.html',username=username)
+
+@app.route('/inventory')
+def inventory():
+    username = is_logged_in()
+    return render_template('inventory.html',username=username)
+
+
+@app.route('/appointments')
+def appoint():
+    username = is_logged_in()
     return render_template('appoint.html',username=username)
+
+@app.route('/profile/<username>')
+def profile(username):
+    currusername = is_logged_in()
+    if currusername is None:
+        return "You must login first!"
+    else:
+        return render_template('profile.html',username=currusername)
+    
 # * ----- Signup routes for each user type ------ #
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -207,7 +206,6 @@ def admin_dash():
         return "Must be logged in as an Admin!"  # Redirect to login if not logged in
 
 
-
 # * ---- LOGOUT ROUTE ---- #
 @app.route('/logout')
 def logout():
@@ -254,9 +252,9 @@ def print_admins():
         for admin in admins:
             print(admin)
 
-# ! print_users()
-# ! print_donors()
-# ! print_admins()
+# ? print_users()
+# ? print_donors()
+# ? print_admins()
 if __name__ == '__main__':
     app.run(debug=True,port=5500)
 
