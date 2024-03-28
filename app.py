@@ -57,6 +57,8 @@ class Recipient(db.Model):
     ContactNumber = db.Column(db.String(15))
     Address = db.Column(db.String(255))
     RequestStatus = db.Column(db.Boolean, nullable=False) # True:Fulfilled, False:Pending
+    def __repr__(self):
+        return f"<{self.UserID} | {self.BloodGroup} | {self.Address}>"
 
 
 # * -------------- APP ROUTES ------------- #
@@ -119,7 +121,7 @@ def signup():
     if not all([username, password, email]):
         return "Please fill out all fields"
         # flash("Please fill out all fields", "error")
-        #return redirect("/signup")
+        # return redirect("/signup")
     elif password != confirm_password:
         return "Passwords do not match!"
         # flash("Passwords do not match!","error")
@@ -135,28 +137,18 @@ def signup():
         if user_type=='donor':
             new_donor = Donor(UserID=newUser.UserID, Address=address, BloodGroup=blood_group)
             with app.app_context():
-                app.logger.error("ERROR 4") 
                 db.session.add(new_donor)
                 db.session.commit()
                 print("---------- Added Donor!---------- ")
         
         elif user_type=='recipient':
-            db.session.refresh(new_user)
             new_recepient = Recipient(UserID=newUser.UserID,Address=address,BloodGroup=blood_group,RequestStatus=False)
             with app.app_context():
                 db.session.add(new_recepient)
                 db.session.commit()
                 print("----------- Added Recipient! ---------- ")
         return redirect(url_for('home'))
-    
 
-@app.route('/donor/signup', methods=['GET', 'POST'])
-def donor_signup():
-    ...
-
-@app.route('/recipient/signup', methods=['GET', 'POST'])
-def recipient_signup():
-    ...
 
 
 # * ------- Login routes for each user type -------- # 
