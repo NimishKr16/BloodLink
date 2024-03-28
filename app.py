@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for, redirect, request, session
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
+import logging
 # import flash
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'BloodLink_DBMS123'
@@ -114,6 +115,7 @@ def signup():
     blood_group = request.form['bloodGroup']
     email = request.form['email']
     address = request.form['address']
+    print("User type:" , user_type)
     if not all([username, password, email]):
         return "Please fill out all fields"
         # flash("Please fill out all fields", "error")
@@ -124,24 +126,27 @@ def signup():
         # return redirect("/signup")
     else:
         new_user = User(Username=username, Password=password, Email=email, UserType=user_type)
-        user_id = new_user.UserID
         with app.app_context():
            db.session.add(new_user)
            db.session.commit()
-        
-        if user_type=='donor': 
-            db.session.refresh(new_user)
-            new_donor = Donor(UserID=new_user.UserID, Address=address, BloodGroup=blood_group)
-            # new_donor = Donor(UserID = user_id,Address=address, BloodGroup=blood_group)
+           print("------------ Added User! ------------- ")
+
+        newUser = User.query.filter_by(Username=username,Email=email).first()
+        if user_type=='donor':
+            new_donor = Donor(UserID=newUser.UserID, Address=address, BloodGroup=blood_group)
             with app.app_context():
+                app.logger.error("ERROR 4") 
                 db.session.add(new_donor)
                 db.session.commit()
+                print("---------- Added Donor!---------- ")
+        
         elif user_type=='recipient':
             db.session.refresh(new_user)
-            new_recepient = Recipient(UserID=new_user.UserID,Address=address,BloodGroup=blood_group,RequestStatus=False)
+            new_recepient = Recipient(UserID=newUser.UserID,Address=address,BloodGroup=blood_group,RequestStatus=False)
             with app.app_context():
                 db.session.add(new_recepient)
                 db.session.commit()
+                print("----------- Added Recipient! ---------- ")
         return redirect(url_for('home'))
     
 
@@ -174,7 +179,7 @@ def login():
         return 'Incorrect Username or password'
         # flash('Incorrect Username or password')
     else:
-        print("Login successful!")
+        print(" ------- Login successful! ------- ")
         session['logged_in'] = True
         session['username'] = username
         return render_template('home.html',username=username)
@@ -211,11 +216,11 @@ def admin_dash():
 def logout():
     # Clear session variables
     if 'logged_in' in session:
-        print("Logged out user")
+        print("-------  Logged out user ------- ")
         session.pop('logged_in', None)
         session.pop('username', None)
     elif 'admin_logged_in' in session:
-        print("Logged out Admin")
+        print("-------  Logged out Admin ------- " )
         session.pop('admin_logged_in', None)
         session.pop('admin_username', None)
     return redirect(url_for('home'))
@@ -252,9 +257,18 @@ def print_admins():
         for admin in admins:
             print(admin)
 
-# ? print_users()
-# ? print_donors()
-# ? print_admins()
+def print_recipient():
+    print('-------- RECIPIENT DETAILS ---------')
+    with app.app_context():
+        recipients = Recipient.query.filter().all()
+        for recipient in recipients:
+            print(recipient)
+
+# print_users()
+# print_donors()
+# print_admins()
+# print_recipient()
+
 if __name__ == '__main__':
     app.run(debug=True,port=5500)
 
