@@ -71,7 +71,7 @@ class BloodBank(db.Model):
     InventoryID = db.Column(db.Integer, db.ForeignKey('blood_inventory.InventoryID'))
 
     def __repr__(self):
-        return f'<{self.Name} | {self.Location}'
+        return f'<{self.BloodBankID} | {self.Name} | {self.Location}'
 
 # * --- Blood Inventory Table --- #
 class BloodInventory(db.Model):
@@ -103,13 +103,15 @@ def home():
 
 @app.route('/findDonors')
 def find_donor():
+    username = is_logged_in()
     donors = Donor.query.all()
-    return render_template('findDonor.html',Donors=donors)
+    return render_template('findDonor.html',Donors=donors,username=username)
 
 @app.route('/donateBlood')
 def donate():
     username = is_logged_in()
-    return render_template('donate.html',username=username)
+    banks = BloodBank.query.all()
+    return render_template('donate.html',username=username,bloodbank=banks)
 
 @app.route('/inventory')
 def inventory():
@@ -296,6 +298,7 @@ def print_recipient():
 # print_admins()
 # print_recipient()
 # print_bloodBanks()
+            
 # * ------------------------------------------------------------ #
     
 if __name__ == '__main__':
