@@ -60,6 +60,29 @@ class Recipient(db.Model):
     def __repr__(self):
         return f"<{self.UserID} | {self.BloodGroup} | {self.Address}>"
 
+# * --- BloodBanks Table --- #
+class BloodBank(db.Model):
+    __tablename__ = 'blood_banks'
+
+    BloodBankID = db.Column(db.Integer, primary_key=True)
+    Name = db.Column(db.String(100), nullable=False)
+    Location = db.Column(db.String(100), nullable=False)
+    ContactNumber = db.Column(db.String(20), nullable=False)
+    InventoryID = db.Column(db.Integer, db.ForeignKey('blood_inventory.InventoryID'))
+
+    def __repr__(self):
+        return f'<{self.Name} | {self.Location}'
+
+# * --- BloodInventory Table --- #
+class BloodInventory(db.Model):
+    __tablename__ = 'blood_inventory'
+
+    InventoryID = db.Column(db.Integer, primary_key=True)
+    BloodBankID = db.Column(db.Integer, db.ForeignKey('blood_banks.BloodBankID'))
+    BloodType = db.Column(db.String(5), nullable=False)
+    Quantity = db.Column(db.Integer, nullable=False)
+    ExpirationDate = db.Column(db.Date, nullable=False)
+    DonationDate = db.Column(db.Date, nullable=False)
 
 # * -------------------------- APP ROUTES ------------------------ #
     
@@ -72,6 +95,7 @@ def is_logged_in():
         username = session['admin_username']
     return username
 
+# * ------------ Template App Routes ------------- #
 @app.route('/')
 def home():
     username = is_logged_in()
@@ -217,6 +241,9 @@ def logout():
         session.pop('admin_username', None)
     return redirect(url_for('home'))
 
+
+
+
 with app.app_context():
     db.create_all()
 
@@ -226,6 +253,13 @@ with app.app_context():
 #     db.session.add(admin2)
 #     db.session.commit()
 #     db.create_all()
+
+def print_bloodBanks():
+    with app.app_context():
+        print('-------- BLOOD BANKS ---------')
+        banks = BloodBank.query.filter().all()
+        for bank in banks:
+            print(bank)
 
 def print_users():
     with app.app_context():
@@ -260,7 +294,7 @@ def print_recipient():
 # print_donors()
 # print_admins()
 # print_recipient()
-
+# print_bloodBanks()
 if __name__ == '__main__':
     app.run(debug=True,port=5500)
 
