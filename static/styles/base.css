@@ -1,3 +1,4 @@
+
 /* --- HOME PAGE IMAGE STYLES --- */
 #home-img{
     width: 40%;
@@ -6,7 +7,7 @@
     position: fixed;
 }
 
-body {
+* {
     font-family: Arial, sans-serif;
   }
 

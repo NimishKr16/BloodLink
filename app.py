@@ -60,7 +60,7 @@ class Recipient(db.Model):
     def __repr__(self):
         return f"<{self.UserID} | {self.BloodGroup} | {self.Address}>"
 
-# * --- BloodBanks Table --- #
+# * --- Blood Banks Table --- #
 class BloodBank(db.Model):
     __tablename__ = 'blood_banks'
 
@@ -73,7 +73,7 @@ class BloodBank(db.Model):
     def __repr__(self):
         return f'<{self.Name} | {self.Location}'
 
-# * --- BloodInventory Table --- #
+# * --- Blood Inventory Table --- #
 class BloodInventory(db.Model):
     __tablename__ = 'blood_inventory'
 
@@ -103,8 +103,8 @@ def home():
 
 @app.route('/findDonors')
 def find_donor():
-    username = is_logged_in()
-    return render_template('findDonor.html',username=username)
+    donors = Donor.query.all()
+    return render_template('findDonor.html',Donors=donors)
 
 @app.route('/donateBlood')
 def donate():
@@ -243,7 +243,6 @@ def logout():
 
 
 
-
 with app.app_context():
     db.create_all()
 
@@ -253,6 +252,8 @@ with app.app_context():
 #     db.session.add(admin2)
 #     db.session.commit()
 #     db.create_all()
+
+# * -------------- PRINT TABLE FUNCTIONS ------------- #
 
 def print_bloodBanks():
     with app.app_context():
@@ -295,6 +296,8 @@ def print_recipient():
 # print_admins()
 # print_recipient()
 # print_bloodBanks()
+# * ------------------------------------------------------------ #
+    
 if __name__ == '__main__':
     app.run(debug=True,port=5500)
 

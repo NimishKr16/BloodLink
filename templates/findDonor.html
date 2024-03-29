@@ -5,6 +5,31 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Hello, World!</h1>
-    <p>This is the Find Donors page!.</p>
+    <h1 id="donor-title">List of Blood Banks</h1>
+    <h2>Please find your nearest Blood Bank</h2>
+    <table id="bloodBankTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Contact Number</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for donor in Donors %}
+            <tr>
+                <td>{{ donor.DonorID}}</td>
+                <td>{{ donor.BloodGroup }}</td>
+                <td>{{ donor.Address }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="why-donate">
+        <h2>Why Donate Blood? <i class="fa-solid fa-droplet"></i></h2> 
+        <p>Blood donation saves lives. It supports medical treatments, including surgeries and emergency care
+          <br> 
+          Donors contribute to community health and solidarity, 
+          making a direct impact on the well-being of others.</p>
+    </div>
 {% endblock %}
