@@ -5,7 +5,43 @@
 {% endblock %}
 
 {% block content %}
-    <h1>This is the USER PROFILE page!</h1>
-    <h1> Welcome {{ username }}</h1>
-    <p>This is the your PROFILE page!.</p>
+<h1 id="profile-head">User Profile</h1>
+<table>
+    <tr>
+        <th>Field</th>
+        <th>Information</th>
+    </tr>
+    <tr>
+        <td>Username:</td>
+        <td>{{ username }}</td>
+    </tr>
+    <tr>
+        <td>User Type:</td>
+        <td>{{ userType }}</td>
+    </tr>
+    <tr>
+        <td>Address:</td>
+        <td>{{ address }}</td>
+    </tr>
+    <tr>
+        <td>Email:</td>
+        <td>{{ email }}</td>
+    </tr>
+    <tr>
+        <td>Contact Number:</td>
+        {% if phone %} 
+        <td>{{phone}}</td>
+        {% else %} 
+        <td>Add Phone Number</td>
+        {% endif %}
+    </tr>
+    <tr>
+        <td>Request Status:</td>
+        <td>Pending</td>
+    </tr>
+    <tr>
+        <td>Medical History:</td>
+        <td>Details of medical go history here...</td>
+    </tr>
+</table>
 {% endblock %}

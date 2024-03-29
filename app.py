@@ -104,7 +104,15 @@ def profile(username):
     if currusername is None:
         return "You must login first!"
     else:
-        return render_template('profile.html',username=currusername)
+        found_user = User.query.filter_by(Username=username).first()
+        userInfo = None
+        if found_user.UserType == 'donor':
+            userInfo = Donor.query.filter_by(DonorID=found_user.UserID).first()
+        elif found_user.UserType == 'recipient':
+            userInfo = Recipient.query.filter_by(RecipientID=found_user.UserID).first()
+        return render_template('profile.html',username=currusername,
+                               email=found_user.Email,
+                               address=userInfo.Address, userType=found_user.UserType)
     
 # * ----- Signup routes for each user type ------ #
 
