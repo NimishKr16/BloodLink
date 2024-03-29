@@ -61,9 +61,9 @@ class Recipient(db.Model):
         return f"<{self.UserID} | {self.BloodGroup} | {self.Address}>"
 
 
-# * -------------- APP ROUTES ------------- #
+# * -------------------------- APP ROUTES ------------------------ #
     
-# * ---- Check Logged-in ---- #
+# * ------------ Check Logged-in ------------ #
 def is_logged_in():
     username = None
     if 'logged_in' in session and session['logged_in'] == True:
@@ -110,12 +110,13 @@ def profile(username):
             userInfo = Donor.query.filter_by(DonorID=found_user.UserID).first()
         elif found_user.UserType == 'recipient':
             userInfo = Recipient.query.filter_by(RecipientID=found_user.UserID).first()
+
         return render_template('profile.html',username=currusername,
                                email=found_user.Email,
                                address=userInfo.Address, userType=found_user.UserType)
     
-# * ----- Signup routes for each user type ------ #
-
+    
+# * ----------------- Signup routes for each user type ------------------ #
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     user_type = request.form['userType']
@@ -158,17 +159,7 @@ def signup():
         return redirect(url_for('home'))
 
 
-
-# * ------- Login routes for each user type -------- # 
-@app.route('/donor/login', methods=['GET', 'POST'])
-def donor_login():
-    ...
-
-@app.route('/recipient/login', methods=['GET', 'POST'])
-def recipient_login():
-    ...
-
-# TODO: ------ General User Login ----
+# * -------------- General User Login ---------------- #
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     user_type = request.form['signup-userType']
@@ -183,7 +174,8 @@ def login():
         session['logged_in'] = True
         session['username'] = username
         return render_template('home.html',username=username)
-    
+
+# * -------------- Admin Login ---------------- #
 @app.route('/admin/login', methods=['GET', 'POST'])
 def admin_login():
     admin_username = request.form.get('adminUsername')
@@ -202,7 +194,7 @@ def admin_login():
         # Authentication failed, redirect back to login page
         return "Incorrect username of password"
 
-# * --- ADMIN DASHBOARD --- #
+# * ----------- ADMIN DASHBOARD ----------- #
 @app.route('/admin/dashboard')
 def admin_dash():
     if 'admin_logged_in' in session and session['admin_logged_in']:
@@ -211,7 +203,7 @@ def admin_dash():
         return "Must be logged in as an Admin!"  # Redirect to login if not logged in
 
 
-# * ---- LOGOUT ROUTE ---- #
+# * ------------- LOGOUT ROUTE ---------------- #
 @app.route('/logout')
 def logout():
     # Clear session variables
