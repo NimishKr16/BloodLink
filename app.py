@@ -124,6 +124,10 @@ def appoint():
     username = is_logged_in()
     return render_template('appoint.html',username=username)
 
+@app.route('/book_appointment/<int:bankid>', methods=["GET","POST"])
+def book(bankid):
+    ...
+
 @app.route('/profile/<username>')
 def profile(username):
     currusername = is_logged_in()
