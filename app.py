@@ -126,7 +126,7 @@ def appoint():
 
 @app.route('/book_appointment/<int:bankid>', methods=["GET","POST"])
 def book(bankid):
-    ...
+    return f"<h1> Book Appointment for: {bankid} Bank No.</h1>"
 
 @app.route('/profile/<username>')
 def profile(username):
