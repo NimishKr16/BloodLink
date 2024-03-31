@@ -136,7 +136,7 @@ def book(bankid):
         bankTuple = BloodBank.query.filter_by(BloodBankID=bankid).first()
         banklocation = bankTuple.Name + ": " + bankTuple.Location
         return render_template('donationform.html',name=username,email=email,
-                               blood_group=bloodgroup, bank = banklocation)
+                               blood_group=bloodgroup, bank = banklocation, username=username)
 
 @app.route('/profile/<username>')
 def profile(username):
@@ -154,7 +154,11 @@ def profile(username):
         return render_template('profile.html',username=currusername,
                                email=found_user.Email,
                                address=userInfo.Address, userType=found_user.UserType)
-    
+
+# * ------- BLOOD DONATION FORM --------- #
+@app.route("/submit_donateForm",methods=["POST","GET"])
+def donation_form():
+    ...
     
 # * ----------------- Signup  ------------------ #
 @app.route('/signup', methods=['GET', 'POST'])
