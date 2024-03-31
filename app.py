@@ -1,7 +1,7 @@
 from flask import Flask, render_template, url_for, redirect, request, session
-from datetime import datetime
+from datetime import datetime, timedelta
 from flask_sqlalchemy import SQLAlchemy
-import logging
+from sqlalchemy.orm import relationship
 # import flash
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'BloodLink_DBMS123'
@@ -46,7 +46,19 @@ class Donor(db.Model):
     def __repr__(self):
         return f"<{self.UserID} | {self.BloodGroup} | {self.Address}>"
 
+# * --- Donations Table --- #
+class Donations(db.Model):
+    __tablename__ = 'donations'
 
+    donation_id = db.Column(db.Integer, primary_key=True)
+    donor_id = db.Column(db.Integer, db.ForeignKey('donors.DonorID'),nullable=False)
+    blood_type = db.Column(db.String(5),nullable=False)
+    quantity = db.Column(db.Integer,nullable=False)
+    donation_date = db.Column(db.Date,nullable=False)
+
+
+with app.app_context():
+    db.create_all()
 # * --- Recipients Table --- #
 class Recipient(db.Model):
     __tablename__ = 'recipients'
@@ -81,8 +93,8 @@ class BloodInventory(db.Model):
     BloodBankID = db.Column(db.Integer, db.ForeignKey('blood_banks.BloodBankID'))
     BloodType = db.Column(db.String(5), nullable=False)
     Quantity = db.Column(db.Integer, nullable=False)
-    ExpirationDate = db.Column(db.Date, nullable=False)
     DonationDate = db.Column(db.Date, nullable=False)
+    ExpirationDate = db.Column(db.Date,nullable=False)
 
 # * -------------------------- APP ROUTES ------------------------ #
     
@@ -136,7 +148,8 @@ def book(bankid):
         bankTuple = BloodBank.query.filter_by(BloodBankID=bankid).first()
         banklocation = bankTuple.Name + ": " + bankTuple.Location
         return render_template('donationform.html',name=username,email=email,
-                               blood_group=bloodgroup, bank = banklocation, username=username)
+                               blood_group=bloodgroup, 
+                               bank = banklocation, username=username)
 
 @app.route('/profile/<username>')
 def profile(username):
@@ -158,8 +171,31 @@ def profile(username):
 # * ------- BLOOD DONATION FORM --------- #
 @app.route("/submit_donateForm",methods=["POST","GET"])
 def donation_form():
-    ...
-    
+    name = request.form.get('name')
+    phone = request.form.get('contact_number')
+    # medical = request.form.get('allergies_medication')
+    amount = request.form.get('blood_amount')
+    donation_date_str = request.form.get('date')
+    donation_date = datetime.strptime(donation_date_str, r'%Y-%m-%d').date()
+    expiration_date = donation_date + timedelta(days=42)
+    bloodgroup = request.form.get('blood_group')
+    user = User.query.filter_by(Username = name).first()
+    donor = Donor.query.filter_by(DonorID = user.UserID).first()
+    with app.app_context():
+        donor.ContactNumber = phone
+        donor.LastDonationDate = donation_date
+        newDonation = Donations(blood_type=bloodgroup, donor_id = donor.DonorID,
+                                quantity=amount,donation_date=donation_date)
+        newadd = BloodInventory(Quantity=amount,BloodType=bloodgroup,
+                                DonationDate=donation_date,
+                                ExpirationDate=expiration_date)
+        db.session.add(newDonation)
+        db.session.add(newadd)
+        db.session.commit()
+    return "<h1> Form submitted successfully </h1>"
+
+        
+        
 # * ----------------- Signup  ------------------ #
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
