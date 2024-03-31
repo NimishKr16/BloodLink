@@ -126,7 +126,17 @@ def appoint():
 
 @app.route('/book_appointment/<int:bankid>', methods=["GET","POST"])
 def book(bankid):
-    return f"<h1> Book Appointment for: {bankid} Bank No.</h1>"
+    username = is_logged_in()
+    if username is None:
+        return "<h1> Please Login First! </h1>"
+    else:
+        Person = User.query.filter_by(Username=username).first()
+        email = Person.Email
+        bloodgroup = Donor.query.filter_by(DonorID=Person.UserID).first().BloodGroup
+        bankTuple = BloodBank.query.filter_by(BloodBankID=bankid).first()
+        banklocation = bankTuple.Name + ": " + bankTuple.Location
+        return render_template('donationform.html',name=username,email=email,
+                               blood_group=bloodgroup, bank = banklocation)
 
 @app.route('/profile/<username>')
 def profile(username):
@@ -146,7 +156,7 @@ def profile(username):
                                address=userInfo.Address, userType=found_user.UserType)
     
     
-# * ----------------- Signup routes for each user type ------------------ #
+# * ----------------- Signup  ------------------ #
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     user_type = request.form['userType']
@@ -181,7 +191,8 @@ def signup():
                 print("---------- Added Donor!---------- ")
         
         elif user_type=='recipient':
-            new_recepient = Recipient(UserID=newUser.UserID,Address=address,BloodGroup=blood_group,RequestStatus=False)
+            new_recepient = Recipient(UserID=newUser.UserID, Address=address,
+                                      BloodGroup=blood_group, RequestStatus=False)
             with app.app_context():
                 db.session.add(new_recepient)
                 db.session.commit()
@@ -189,7 +200,7 @@ def signup():
         return redirect(url_for('home'))
 
 
-# * -------------- General User Login ---------------- #
+# * -------------- Login ---------------- #
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     user_type = request.form['signup-userType']
