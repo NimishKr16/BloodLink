@@ -4,6 +4,12 @@
     Donate Blood
 {% endblock %}
 
+
+{% block css %}
+    <link rel="stylesheet" href="../static/styles/postform.css">
+{% endblock %}
+
+
 {% block content %}
 
 
@@ -12,6 +18,6 @@
     <p id="para-post">Your blood donation appointment has been successfully booked.</p>
     <button class="btn-post"> <a href="{{ url_for('home')}}" style="text-decoration: none;">Return Home</a></button>
 </div>
- 
+
   
 {% endblock %}

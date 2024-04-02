@@ -1,16 +1,23 @@
 body {
     font-family: Arial, sans-serif;
+            
 }
 
 .donor-title {
     text-align: center;
     margin-bottom: 20px;
 }
-
-#donor-table {
-    width: 100%;
+#bloodBankTable{
+    width: 60%;
     border-collapse: collapse;
     border-spacing: 0;
+    margin-left: 20rem;
+}
+#donor-table {
+    width: 60%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-left: 20rem;
 }
 
 th, td {
