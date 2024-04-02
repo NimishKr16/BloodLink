@@ -182,18 +182,14 @@ def donation_form():
     user = User.query.filter_by(Username = name).first()
     donor = Donor.query.filter_by(DonorID = user.UserID).first()
     bank =request.form.get('location')
-    bankID = None
-    try:
-        bankname = bank.split(':')[0]
-        bankId =  BloodBank.query.filter_by(Name=bankname).first().BloodBankID
-    except Exception as e:
-        print(e)
+    bankname = bank.split(':')[0]
+    bankId =  BloodBank.query.filter_by(Name=bankname).first().BloodBankID
     with app.app_context():
         donor.ContactNumber = phone
         donor.LastDonationDate = donation_date
         newDonation = Donations(blood_type=bloodgroup, donor_id = donor.DonorID,
                                 quantity=amount,donation_date=donation_date)
-        newadd = BloodInventory(Quantity=amount,BloodType=bloodgroup,BloodBankID=bankID,
+        newadd = BloodInventory(Quantity=amount,BloodType=bloodgroup,BloodBankID=bankId,
                                 DonationDate=donation_date,
                                 ExpirationDate=expiration_date)
         db.session.add(newDonation)
