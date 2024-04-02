@@ -181,18 +181,25 @@ def donation_form():
     bloodgroup = request.form.get('blood_group')
     user = User.query.filter_by(Username = name).first()
     donor = Donor.query.filter_by(DonorID = user.UserID).first()
+    bank =request.form.get('location')
+    bankID = None
+    try:
+        bankname = bank.split(':')[0]
+        bankId =  BloodBank.query.filter_by(Name=bankname).first().BloodBankID
+    except Exception as e:
+        print(e)
     with app.app_context():
         donor.ContactNumber = phone
         donor.LastDonationDate = donation_date
         newDonation = Donations(blood_type=bloodgroup, donor_id = donor.DonorID,
                                 quantity=amount,donation_date=donation_date)
-        newadd = BloodInventory(Quantity=amount,BloodType=bloodgroup,
+        newadd = BloodInventory(Quantity=amount,BloodType=bloodgroup,BloodBankID=bankID,
                                 DonationDate=donation_date,
                                 ExpirationDate=expiration_date)
         db.session.add(newDonation)
         db.session.add(newadd)
         db.session.commit()
-    return "<h1> Form submitted successfully </h1>"
+    return render_template('postform.html')
 
         
         
