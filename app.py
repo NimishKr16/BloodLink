@@ -136,6 +136,8 @@ def appoint():
     username = is_logged_in()
     return render_template('appoint.html',username=username)
 
+
+#  * --------- APPOINTMENT BOOKING ----------- #
 @app.route('/book_appointment/<int:bankid>', methods=["GET","POST"])
 def book(bankid):
     username = is_logged_in()
@@ -151,6 +153,7 @@ def book(bankid):
                                blood_group=bloodgroup, 
                                bank = banklocation, username=username)
 
+#  * --------- PROFILE PAGE ----------- #
 @app.route('/profile/<username>')
 def profile(username):
     currusername = is_logged_in()
@@ -167,6 +170,8 @@ def profile(username):
         return render_template('profile.html',username=currusername,
                                email=found_user.Email,
                                address=userInfo.Address, userType=found_user.UserType)
+
+
 
 # * ------- BLOOD DONATION FORM --------- #
 @app.route("/submit_donateForm",methods=["POST","GET"])
@@ -189,8 +194,8 @@ def donation_form():
         donor.LastDonationDate = donation_date
         newDonation = Donations(blood_type=bloodgroup, donor_id = donor.DonorID,
                                 quantity=amount,donation_date=donation_date)
-        newadd = BloodInventory(Quantity=amount,BloodType=bloodgroup,BloodBankID=bankId,
-                                DonationDate=donation_date,
+        newadd = BloodInventory(Quantity=amount,BloodType=bloodgroup,
+                                BloodBankID=bankId, DonationDate=donation_date,
                                 ExpirationDate=expiration_date)
         db.session.add(newDonation)
         db.session.add(newadd)
