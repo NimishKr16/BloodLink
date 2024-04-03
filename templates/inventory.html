@@ -4,8 +4,33 @@
     Inventory
 {% endblock %}
 
+{% block css %}
+    <link rel="stylesheet" href="../static/styles/invent.css">
+{% endblock %}
 
 {% block content %}
-    <h1>This is the Inventory page!</h1>
-    <p>This is the Inventory page!.</p>
+
+<h2>Blood Bank Inventory</h2>
+
+<table id="invent-table">
+  <thead>
+    <tr class="in-tr">
+      <th class="in-th">Blood Bank</th>
+      <th class="in-th">Location</th>
+      <th class="in-th">Blood Group</th>
+      <th class="in-th">Quantity (mL)</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for inventory, loc in inventory_with_locs %}
+    <tr class="in-tr">
+        <td class="in-td">{{ inventory.BloodBankID }}</td>
+        <td class="in-td">{{ loc }}</td>
+        <td class="in-td">{{ inventory.BloodType }}</td>
+        <td class="in-td">{{ inventory.Quantity }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
 {% endblock %}

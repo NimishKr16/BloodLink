@@ -128,7 +128,14 @@ def donate():
 @app.route('/inventory')
 def inventory():
     username = is_logged_in()
-    return render_template('inventory.html',username=username)
+    inventory = BloodInventory.query.all()
+    locs = []
+    for inv in inventory:
+        name = inv.BloodBankID =  BloodBank.query.filter_by(BloodBankID=inv.BloodBankID).first().Name
+        locs.append( BloodBank.query.filter_by(Name=name).first().Location)
+    inventory_with_locs = zip(inventory, locs)
+    return render_template('inventory.html', username=username, inventory_with_locs=inventory_with_locs) 
+   
 
 
 @app.route('/appointments')
