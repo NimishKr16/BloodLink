@@ -199,6 +199,9 @@ def donation_form():
     with app.app_context():
         donor.ContactNumber = phone
         donor.LastDonationDate = donation_date
+        CurrName = Donations.query.filter_by(donor_id = donor.DonorID).first()
+        if CurrName is not None:
+            ...
         newDonation = Donations(blood_type=bloodgroup, donor_id = donor.DonorID,
                                 quantity=amount,donation_date=donation_date)
         newadd = BloodInventory(Quantity=amount,BloodType=bloodgroup,
