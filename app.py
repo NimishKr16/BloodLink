@@ -56,7 +56,18 @@ class Donations(db.Model):
     quantity = db.Column(db.Integer,nullable=False)
     donation_date = db.Column(db.Date,nullable=False)
 
+class Appointments(db.Model):
+    __tablename__ = 'appointments'
 
+    appoint_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.UserID'),nullable=False)
+    appoint_date = db.Column(db.Date,nullable=False)
+    bank = db.Column(db.String,nullable=False)
+
+    def __repr__(self):
+        return f"<{self.user_id} | {self.bank} | {self.appoint_date}>"
+
+    
 with app.app_context():
     db.create_all()
 # * --- Recipients Table --- #
@@ -141,7 +152,14 @@ def inventory():
 @app.route('/appointments')
 def appoint():
     username = is_logged_in()
-    return render_template('appoint.html',username=username)
+    if username is None:
+        return "<h1> You must login first </h1>"
+    
+    CurruserID = User.query.filter_by(Username=username).first().UserID
+    print(CurruserID)
+    appts = Appointments.query.filter_by(user_id = CurruserID).all()
+    print(appts)
+    return render_template('appoint.html',appointments=appts)
 
 
 #  * --------- APPOINTMENT BOOKING ----------- #
@@ -207,6 +225,9 @@ def donation_form():
         newadd = BloodInventory(Quantity=amount,BloodType=bloodgroup,
                                 BloodBankID=bankId, DonationDate=donation_date,
                                 ExpirationDate=expiration_date)
+        newAppoint = Appointments(appoint_date=donation_date,bank=bankname,user_id=user.UserID)
+        db.session.add(newAppoint)
+        print("---- NEW APPOINTMENT ADDED ----")
         db.session.add(newDonation)
         db.session.add(newadd)
         db.session.commit()
@@ -366,6 +387,14 @@ def print_recipient():
         for recipient in recipients:
             print(recipient)
 
+def print_appointments():
+    print('-------- APPOINTMENTS ---------')
+    with app.app_context():
+        appointments = Appointments.query.filter().all()
+        for appointment in appointments:
+            print(appointment)
+    
+# print_appointments()
 # print_users()
 # print_donors()
 # print_admins()

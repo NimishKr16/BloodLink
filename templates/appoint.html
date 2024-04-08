@@ -4,7 +4,29 @@
     Appointments
 {% endblock %}
 
+{% block css %}
+<link rel="stylesheet" href="../static/styles/appoint.css">
+{% endblock %}
+
+
 {% block content %}
-    <h1>This is the Appointments page!</h1>
-    <p>This is the Appointments page!.</p>
+<h1>Your Scheduled Appointments</h1>
+<table id="appoint-table">
+    <thead>
+        <tr>
+            <th>Blood Bank</th>
+            <th>Appointment Date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for appoint in appointments %}
+        <tr>
+            <td>{{ appoint.bank }}</td>
+            <td>{{ appoint.appoint_date }}</td>
+            <td>Pending</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
