@@ -5,3 +5,7 @@
 p{
     font-size: larger;
 }
+
+#home-img{
+    position: absolute;
+}

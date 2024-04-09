@@ -31,6 +31,7 @@
   }
   
   .nav-links {
+    margin-top: 1rem;
     list-style: none;
     float: right;
     font-size: 140%;
