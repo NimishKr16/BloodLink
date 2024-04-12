@@ -22,14 +22,16 @@
     </tr>
   </thead>
   <tbody>
-    {% for inventory, loc in inventory_with_locs %}
+    {% for bank, total_inventory in inventory_with_totals %}
+    {% for blood_type, total_quantity in total_inventory %}
     <tr class="in-tr">
-        <td class="in-td">{{ inventory.BloodBankID }}</td>
-        <td class="in-td">{{ loc }}</td>
-        <td class="in-td">{{ inventory.BloodType }}</td>
-        <td class="in-td">{{ inventory.Quantity }}</td>
+        <td class="in-td">{{ bank.Name }}</td>
+        <td class="in-td">{{ bank.Location }}</td>
+        <td class="in-td">{{ blood_type }}</td>
+        <td class="in-td">{{ total_quantity }}</td>
     </tr>
     {% endfor %}
+  {% endfor %}
   </tbody>
 </table>
 

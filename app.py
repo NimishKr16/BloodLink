@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, redirect, request, session
 from datetime import datetime, timedelta
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
+from sqlalchemy import func
 # import flash
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'BloodLink_DBMS123'
@@ -106,6 +107,14 @@ class BloodInventory(db.Model):
     Quantity = db.Column(db.Integer, nullable=False)
     DonationDate = db.Column(db.Date, nullable=False)
     ExpirationDate = db.Column(db.Date,nullable=False)
+    @classmethod
+    def get_total_blood_inventory(cls, blood_bank_id):
+        total_blood_inventory = db.session.query(
+                cls.BloodType,
+                func.sum(cls.Quantity).label('TotalQuantity')
+            ).filter_by(BloodBankID=blood_bank_id).group_by(cls.BloodType).all()
+            
+        return total_blood_inventory
 
 # * -------------------------- APP ROUTES ------------------------ #
     
@@ -136,16 +145,19 @@ def donate():
     banks = BloodBank.query.all()
     return render_template('donate.html',username=username,bloodbank=banks)
 
+
+
 @app.route('/inventory')
 def inventory():
     username = is_logged_in()
-    inventory = BloodInventory.query.all()
-    locs = []
-    for inv in inventory:
-        name = inv.BloodBankID =  BloodBank.query.filter_by(BloodBankID=inv.BloodBankID).first().Name
-        locs.append( BloodBank.query.filter_by(Name=name).first().Location)
-    inventory_with_locs = zip(inventory, locs)
-    return render_template('inventory.html', username=username, inventory_with_locs=inventory_with_locs) 
+    blood_banks = BloodBank.query.all()
+    inventory_with_totals = []
+
+    for bank in blood_banks:
+        total_inventory = BloodInventory.get_total_blood_inventory(bank.BloodBankID)
+        inventory_with_totals.append((bank, total_inventory))
+
+    return render_template('inventory.html', username=username, inventory_with_totals=inventory_with_totals)
    
 
 
@@ -159,7 +171,7 @@ def appoint():
     print(CurruserID)
     appts = Appointments.query.filter_by(user_id = CurruserID).all()
     print(appts)
-    return render_template('appoint.html',appointments=appts)
+    return render_template('appoint.html',appointments=appts,username=username)
 
 
 #  * --------- APPOINTMENT BOOKING ----------- #
