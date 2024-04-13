@@ -165,7 +165,7 @@ def inventory():
 def appoint():
     username = is_logged_in()
     if username is None:
-        return "<h1> You must login first </h1>"
+        return render_template('templogin.html',title="Login-Appointments")
     
     CurruserID = User.query.filter_by(Username=username).first().UserID
     print(CurruserID)
@@ -179,7 +179,7 @@ def appoint():
 def book(bankid):
     username = is_logged_in()
     if username is None:
-        return "<h1> Please Login First! </h1>"
+        return render_template('templogin.html',title="Login-Donations")
     else:
         Person = User.query.filter_by(Username=username).first()
         email = Person.Email
@@ -195,7 +195,7 @@ def book(bankid):
 def profile(username):
     currusername = is_logged_in()
     if currusername is None:
-        return "You must login first!"
+        return render_template('templogin.html',title="Login-Profile")
     else:
         found_user = User.query.filter_by(Username=username).first()
         userInfo = None
