@@ -6,9 +6,12 @@
     margin-top: -25%;
     position: fixed;
 }
-
+body{
+  background-color: black;
+}
 * {
     font-family: Arial, sans-serif;
+
   }
 
 /* * --- NAVBAR STYLES --- */
@@ -19,9 +22,10 @@
   }
   
   .navbar {
-    background-color: #3c3b3b;
+    background-color: black;
     padding: 1.25rem;
-    border-radius: 1%;
+
+
   }
   
   .logo {
@@ -51,7 +55,8 @@
   }
   
   .nav-links li a:hover {
-    background-color: #555;
+    background-color: #ba2828;
+    border-bottom: 4px solid rgb(92, 218, 8);
   }
   
   /* * --- NAVBAR Dropdown styles --- */

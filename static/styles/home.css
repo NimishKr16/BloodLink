@@ -1,11 +1,91 @@
 .why-donate{
-    margin-top: 20%;
+    margin-top: 25%;
     margin-left: 5%;
+    background-color: black;
 }
 p{
     font-size: larger;
+    color: white;
 }
 
 #home-img{
     position: absolute;
+    border-radius: 1%;
+
 }
+
+#anotherimg{
+    margin-top: 20rem;
+    margin-left: 0.8rem;
+    width: 99%;
+}
+
+.profile-card {
+    position: relative;
+    margin: 150px auto;
+    width: 450px;
+    padding: 20px;
+    box-shadow: 3px 10px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    border: 0;
+    background-color: rgba(36, 218, 12, 0.9);
+    margin-left: 1.25rem;
+  }
+  .profile-circle {
+    border-radius: 3px;
+    width: 150px;
+    height: 150px;
+    background: rgb(0, 0, 0);
+    position: absolute;
+    right: 0px;
+    top: 0;
+    background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+    border-bottom-left-radius: 170px;
+  }
+  .profile-content {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+  }
+  .profile-title h1 {
+    font-size: 34px;
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+  .profile-title h2 {
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    font-weight: 300;
+  }
+  .profile-social {
+    margin-bottom: 5px;
+  }
+  .profile-social a {
+    text-decoration: none !important;
+    color: black;
+    margin-left: 8px;
+    font-weight: 300;
+  }
+
+  .card-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: -40rem; /* Adjust alignment as needed */
+  }
+  
+  .profile-container {
+    flex: 0 0 calc(33.33% - 20px); /* Adjust width as needed (minus any margins) */
+    /* Rest of your existing styles for profile container */
+  }
+
+  .profile-title h1{
+    font-weight: bold;
+  }
+
+  .profile-title h2{
+    font-weight: bold;
+  }
+
+  .profile-social a{
+    font-weight: bold;
+  }
