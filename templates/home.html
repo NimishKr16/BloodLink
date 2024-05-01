@@ -30,7 +30,7 @@
       <div class="profile-container">
         <div class="profile-card">
           <div class="profile-title">
-            <h1 style="">Donate Blood</h1>
+            <h1>Donate Blood</h1>
             <h2>Find Blood Banks Near You</h2>
           </div>
           <div class="profile-content">
@@ -54,20 +54,20 @@
         <div class="profile-card">
           <div class="profile-title">
             <h1>Recieve Blood</h1>
-            <h2>"Frontend Developer"</h2>
+            <h2>Get Blood For Yourself</h2>
           </div>
           <div class="profile-content">
             <div class="profile-social">
-              <a href="https://codepen.io/umurkose/" target="_blank">
-                codepen.io/username</a>
+              <a href="{{ url_for('find_donor') }}" >
+                All Blood Groups Available</a>
             </div>
             <div class="profile-social">
-              <a href="https://www.linkedin.com/in/bada55-umurkose" target="_blank">
-                linkedin.com/in/username</a>
+              <a href="{{ url_for('find_donor') }}">
+                Connect with donors today!</a>
             </div>
             <div class="profile-social">
-              <a href="https://umurkose.com" target="_blank">
-                domain.com</a>
+              <a href="{{ url_for('find_donor') }}">
+                And stay healthy!</a>
             </div>
           </div>
           <div class="profile-circle"></div>
@@ -77,20 +77,20 @@
         <div class="profile-card">
           <div class="profile-title">
             <h1>Attend Events</h1>
-            <h2>"Frontend Developer"</h2>
+            <h2>Find Blood Camps & Events Near You!</h2>
           </div>
           <div class="profile-content">
             <div class="profile-social">
-              <a href="https://codepen.io/umurkose/" target="_blank">
-                codepen.io/username</a>
+              <a href="https://codepen.io/umurkose/">
+                Attend events across the country</a>
             </div>
             <div class="profile-social">
-              <a href="https://www.linkedin.com/in/bada55-umurkose" target="_blank">
-                linkedin.com/in/username</a>
+              <a href="https://www.linkedin.com/in/bada55-umurkose">
+                Donate & recieve blood instantly</a>
             </div>
             <div class="profile-social">
-              <a href="https://umurkose.com" target="_blank">
-                domain.com</a>
+              <a href="https://umurkose.com">
+                Enjoy high-end facilities!</a>
             </div>
           </div>
           <div class="profile-circle"></div>
@@ -100,6 +100,9 @@
 
   </div>
 
+  <div class="book-an-appointment">
+    Book an appointment now!
+  </div>
 
   <!-- ! FOOTER -->
   <footer class="footer">
