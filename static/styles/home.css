@@ -20,7 +20,7 @@ p{
     width: 99%;
 }
 
-.profile-card {
+.profile-card1 {
     position: relative;
     margin: 150px auto;
     width: 450px;
@@ -28,7 +28,29 @@ p{
     box-shadow: 3px 10px 20px rgba(0, 0, 0, 0.2);
     border-radius: 3px;
     border: 0;
-    background-color: rgba(243, 67, 24, 0.9);
+    background-color: rgba(243, 67, 24, 0.89);
+    margin-left: 1.25rem;
+  }
+  .profile-card2{
+    position: relative;
+    margin: 150px auto;
+    width: 450px;
+    padding: 20px;
+    box-shadow: 3px 10px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    border: 0;
+    background-color: rgba(243, 67, 24, 0.85);
+    margin-left: 1.25rem;
+  }
+  .profile-card3 {
+    position: relative;
+    margin: 150px auto;
+    width: 450px;
+    padding: 20px;
+    box-shadow: 3px 10px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    border: 0;
+    background-color: rgba(243, 67, 24, 0.85);
     margin-left: 1.25rem;
   }
   .profile-circle {
