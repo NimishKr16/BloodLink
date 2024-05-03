@@ -351,9 +351,6 @@ def logout():
 
 
 
-with app.app_context():
-    db.create_all()
-
 
 # with app.app_context():
 #     db.session.add(admin1)

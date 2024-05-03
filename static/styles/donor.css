@@ -3,7 +3,7 @@ body {
             
 }
 
-.donor-title {
+#donor-title {
     text-align: center;
     margin-bottom: 20px;
 }
@@ -25,12 +25,23 @@ th, td {
     text-align: left;
     border-bottom: 1px solid #ddd;
     color: white;
+   
+}
+
+tr{
+    background-color: rgb(35, 35, 35);
 }
 th {
-    background-color: #f2f2f2;
-    color: black;
+    background-color: rgb(61, 60, 60);
+    color: rgb(255, 251, 251);
 }
 
 tr:hover {
     background-color: #d82d2d;
+    cursor: pointer;
+}
+
+.bloodBank-title{
+    color: rgb(220, 77, 25);
+    text-align: center;
 }
