@@ -49,24 +49,24 @@
   <body>
     <!-- ! Login/Signup Popup -->
     <div id="popup" class="popup">
-      <div class="popup-content">
+      <div class="popup-content" style="background-color: rgb(44, 43, 43);">
         <span class="close" onclick="closePopup()">&times;</span>
         <div class="form-container">
-          <h2>Login</h2>
+          <h2 style="color: aqua;">Login</h2>
           <form id="loginForm" action="/login" method="post">
             <div class="form-group">
-              <label for="userType">User Type</label>
+              <label for="userType" style="color: rgb(255, 255, 255);">User Type</label>
               <select id="signup-userType" name="signup-userType">
                 <option value="donor">Donor</option>
                 <option value="recipient">Recipient</option>
               </select>
             </div>
             <div class="form-group">
-              <label for="username">Username</label>
+              <label for="username" style="color: rgb(255, 255, 255);">Username</label>
               <input type="text" id="login-uname" name="login-uname" required />
             </div>
             <div class="form-group">
-              <label for="password">Password</label>
+              <label for="password" style="color: rgb(255, 255, 255);">Password</label>
               <input
                 type="password"
                 id="login-pass"
@@ -79,13 +79,13 @@
           <div class="signup-link">
             <p>
               Don't have an account?
-              <a href="#" onclick="openSignupPopup()">Signup</a>
+              <a href="#" onclick="openSignupPopup()" style="color: rgb(215, 92, 249);">Signup</a>
             </p>
           </div>
           <div class="admin-login-link">
             <p>
               Work @BloodLink?
-              <a href="#" onclick="openAdminLoginPopup()">Admin Login</a>
+              <a href="#" onclick="openAdminLoginPopup()" style="color: rgb(215, 92, 249);">Admin Login</a>
             </p>
           </div>
         </div>

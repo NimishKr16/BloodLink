@@ -19,13 +19,16 @@
       transforming compassion into life-saving acts: <br />
       <span style="color: red">ONE DROP AT A TIME. <i class="fa-solid fa-droplet"></i></span>
     </h2>
+    <a href="#sec1" id="get-started-href"><button id="get-started">Get Started!</button></a>
   </div>
   <div id="home-img-container">
     <img id="home-img" src="../static/images/image.png" alt="home-img" />
   </div>
 
+  <!-- ! MAIN SECTION -->
   <div class="down1">
     <img  id="anotherimg"  src="../static/images/pres.webp" alt="" srcset="">
+    <section id="sec1">
     <div class="card-container">
       <div class="profile-container">
         <div class="profile-card1">
@@ -33,76 +36,85 @@
             <h1>Donate Blood</h1>
             <h2>Find Blood Banks Near You</h2>
           </div>
-          <div class="profile-content">
-            <div class="profile-social">
-              <a href="{{ url_for('donate') }}" style="text-decoration: underline;">
-                Book an Appointment</a>
+            <div class="profile-content">
+              <div class="profile-social">
+                <a href="{{ url_for('donate') }}" style="text-decoration: underline;">
+                  Book an Appointment</a>
+              </div>
+              <div class="profile-social">
+                <a href="{{ url_for('donate') }}" >
+                  at your nearest blood bank</a>
+              </div>
+              <div class="profile-social">
+                <a href="{{ url_for('donate') }}">
+                  and donate blood at your convenience</a>
+              </div>
             </div>
-            <div class="profile-social">
-              <a href="{{ url_for('donate') }}" >
-                at your nearest blood bank</a>
-            </div>
-            <div class="profile-social">
-              <a href="{{ url_for('donate') }}">
-                and donate blood at your convenience</a>
-            </div>
+            <div class="profile-circle"></div>
           </div>
-          <div class="profile-circle"></div>
+        </div>
+        <div class="profile-container">
+          <div class="profile-card2">
+            <div class="profile-title">
+              <h1>Recieve Blood</h1>
+              <h2>Get Blood For Yourself</h2>
+            </div>
+            <div class="profile-content">
+              <div class="profile-social">
+                <a href="{{ url_for('find_donor') }}" >
+                  All Blood Groups Available</a>
+              </div>
+              <div class="profile-social">
+                <a href="{{ url_for('find_donor') }}">
+                  Connect with donors today!</a>
+              </div>
+              <div class="profile-social">
+                <a href="{{ url_for('find_donor') }}">
+                  And stay healthy!</a>
+              </div>
+            </div>
+            <div class="profile-circle"></div>
+          </div>
+        </div>
+        <div class="profile-container">
+          <div class="profile-card3">
+            <div class="profile-title">
+              <h1>Attend Events</h1>
+              <h2>Find Blood Camps & Events Near You!</h2>
+            </div>
+            <div class="profile-content">
+              <div class="profile-social">
+                <a href="https://codepen.io/umurkose/">
+                  Attend events across the country</a>
+              </div>
+              <div class="profile-social">
+                <a href="https://www.linkedin.com/in/bada55-umurkose">
+                  Donate & recieve blood instantly</a>
+              </div>
+              <div class="profile-social">
+                <a href="https://umurkose.com">
+                  Enjoy high-end facilities!</a>
+              </div>
+            </div>
+            <div class="profile-circle"></div>
+          </div>
         </div>
       </div>
-      <div class="profile-container">
-        <div class="profile-card2">
-          <div class="profile-title">
-            <h1>Recieve Blood</h1>
-            <h2>Get Blood For Yourself</h2>
-          </div>
-          <div class="profile-content">
-            <div class="profile-social">
-              <a href="{{ url_for('find_donor') }}" >
-                All Blood Groups Available</a>
-            </div>
-            <div class="profile-social">
-              <a href="{{ url_for('find_donor') }}">
-                Connect with donors today!</a>
-            </div>
-            <div class="profile-social">
-              <a href="{{ url_for('find_donor') }}">
-                And stay healthy!</a>
-            </div>
-          </div>
-          <div class="profile-circle"></div>
-        </div>
-      </div>
-      <div class="profile-container">
-        <div class="profile-card3">
-          <div class="profile-title">
-            <h1>Attend Events</h1>
-            <h2>Find Blood Camps & Events Near You!</h2>
-          </div>
-          <div class="profile-content">
-            <div class="profile-social">
-              <a href="https://codepen.io/umurkose/">
-                Attend events across the country</a>
-            </div>
-            <div class="profile-social">
-              <a href="https://www.linkedin.com/in/bada55-umurkose">
-                Donate & recieve blood instantly</a>
-            </div>
-            <div class="profile-social">
-              <a href="https://umurkose.com">
-                Enjoy high-end facilities!</a>
-            </div>
-          </div>
-          <div class="profile-circle"></div>
-        </div>
-      </div>
+  
     </div>
+    
+  </section>
+  <section id="sec2">
+    <div class="book-an-appointment">
+      <h2>
+        > Schedule An Appointment Now!
+      </h2>
+      <button id="app-book" onclick="location.href='/findDonors'">Book an Appointment</button>
+    </div>
+ 
+  </section>
+ 
 
-  </div>
-
-  <div class="book-an-appointment">
-    Book an appointment now!
-  </div>
 
   <!-- ! FOOTER -->
   <footer class="footer">

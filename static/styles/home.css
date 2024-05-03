@@ -15,9 +15,10 @@ p{
 }
 
 #anotherimg{
-    margin-top: 20rem;
+    margin-top: 21.5rem;
     margin-left: 0.8rem;
     width: 99%;
+    height:85vh;
 }
 
 .profile-card1 {
@@ -110,4 +111,45 @@ p{
 
   .profile-social a{
     font-weight: bold;
+  }
+
+  .book-an-appointment{
+    color: white;
+    margin-top: 9rem;
+    margin-bottom: -15rem;
+    background-color: rgb(175, 11, 104);
+    display: flex;
+    padding: 1%;
+    align-items: center;
+    border-radius: 6px;
+  }
+
+  .book-an-appointment h2{
+    margin-left: 22rem;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+
+  #app-book{
+  margin-left: 5rem;
+  background-color:green;
+  
+  }
+
+  #app-book:hover{
+    background-color: rgb(175, 3, 3);
+    border-color: red;
+    border-bottom: #a6c1ee;
+  }
+
+  #get-started{
+    background-color: rgb(226, 5, 5);
+  } 
+
+  #get-started:hover{
+    background-color: darkred;
+    border-radius: 4px;
+  }
+
+  #get-started-href:hover{
+    text-decoration: underline;
   }
