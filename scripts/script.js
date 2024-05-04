@@ -42,3 +42,36 @@ document.querySelectorAll('.popup-content .close').forEach(function(button) {
         closePopup(popup.id);
     });
 });
+
+$(document).ready(function(){
+ 
+    // Initialize select2
+    $("#SelExample").select2();
+    $("#SelExample").select2("val", "4");
+  $('#SelExample option:selected').text('Vizag');
+    // Read selected option
+    $('#but_read').click(function(){
+      var username = $('#SelExample option:selected').text();
+      var userid = $('#SelExample').val();
+  
+      $('#result').text("id : " + userid + ", name : " + username);
+    });
+  });
+  
+  $(document).ready(function(){
+   
+    // Initialize select2
+    $("#SelExample2").select2();
+    $("#SelExample2").select2("val", "4");
+  $('#SelExample2 option:selected').text('Vizag');
+    // Read selected option
+    $('#but_read2').click(function(){
+      var username = $('#SelExample2 option:selected').text();
+      var userid = $('#SelExample2').val();
+  
+      $('#result2').text("id : " + userid + ", name : " + username);
+    });
+  });
+  
+  
+  

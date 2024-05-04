@@ -12,6 +12,72 @@
 {% block content %}
     <h1 class="bloodBank-title">List of Blood Banks</h1>
     <h2 class="bloodBank-title">Please select your nearest Blood Bank to donate blood</h2>
+
+    <div id="filter-form-div">
+        <form action="/process_data" method="POST">
+            <div class="locsearch">
+                <h2 class="filter-head">Filter by Location:</h2>
+                <select name="location" id="set-loc">
+                  <option value="New Delhi, Delhi">New Delhi, Delhi</option>
+                  <option value="Chennai, Tamil Nadu">Chennai, Tamil Nadu</option>
+                  <option value="Hyderabad, Telangana">Hyderabad, Telangana</option>
+                  <option value="Pune, Maharashtra">Pune, Maharashtra</option>
+                  <option value="Puducherry">Puducherry</option>
+                  <option value="Mumbai, Maharashtra">Mumbai, Maharashtra</option>
+                  <option value="Vellore, Tamil Nadu">Vellore, Tamil Nadu</option>
+                  <option value="Lucknow, Uttar Pradesh">Lucknow, Uttar Pradesh</option>
+                  <option value="Kozhikode, Kerala">Kozhikode, Kerala</option>
+                  <option value="Ahmedabad, Gujarat">Ahmedabad, Gujarat</option>
+                  <option value="Mysore, Karnataka">Mysore, Karnataka</option>
+                  <option value="Jaipur, Rajasthan">Jaipur, Rajasthan</option>
+                  <option value="Kochi, Kerala">Kochi, Kerala</option>
+                  <option value="Bengaluru, Karnataka">Bengaluru, Karnataka</option>
+                  <option value="Surat, Gujarat">Surat, Gujarat</option>
+                  <option value="Chandigarh">Chandigarh</option>
+                  <option value="Madurai, Tamil Nadu">Madurai, Tamil Nadu</option>
+                  <option value="Ludhiana, Punjab">Ludhiana, Punjab</option>
+                  <option value="Panaji, Goa">Panaji, Goa</option>
+                </select>
+            </div>
+          
+            
+            <div class="namesearch">
+                <h2 class="filter-head2">Search by Name:</h2>
+            <select id="setname" name="name">
+              <option value="Apollo Blood Bank">Apollo Blood Bank</option>
+              <option value="Nizam's Medical Sciences">Nizam's Medical Sciences</option>
+              <option value="Ruby Hall Clinic">Ruby Hall Clinic</option>
+              <option value="JIPMER Blood Bank">JIPMER Blood Bank</option>
+              <option value="Kokilaben Ambani Hospital">Kokilaben Ambani Hospital</option>
+              <option value="Christian Medical College">Christian Medical College</option>
+              <option value="SGPGI Medical Sciences">SGPGI Medical Sciences</option>
+              <option value="Government Medical College">Government Medical College</option>
+              <option value="AIIMS Blood Bank">AIIMS Blood Bank</option>
+              <option value="Gandhi Blood Bank">Gandhi Blood Bank</option>
+              <option value="Mysore Blood Donors Forum">Mysore Blood Donors Forum</option>
+              <option value="Rajasthan Blood Bank Society">Rajasthan Blood Bank Society</option>
+              <option value="Kerala Blood Donors Society">Kerala Blood Donors Society</option>
+              <option value="Bengaluru Blood Bank">Bengaluru Blood Bank</option>
+              <option value="Gujarat Blood Bank Association">Gujarat Blood Bank Association</option>
+              <option value="Chandigarh Blood Bank">Chandigarh Blood Bank</option>
+              <option value="Madurai Blood Bank">Madurai Blood Bank</option>
+              <option value="Punjab Blood Donors Society">Punjab Blood Donors Society</option>
+              <option value="Goa Blood Bank">Goa Blood Bank</option>
+            </select>
+            </div>
+            
+          <div id="filterbtn">
+              <button type="submit" id="filter-sbmt">Apply Filters</button>
+
+          </div>
+          </form>
+    </div>
+   
+      
+    
+      
+<!--  ! NEW HTML ABOVE U MAY REMOVE */ -->
+
     <table id="bloodBankTable">
         <thead>
             <tr>
@@ -38,3 +104,9 @@
           making a direct impact on the well-being of others.</p>
     </div>
 {% endblock %}
+
+
+
+
+
+    

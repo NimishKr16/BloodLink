@@ -45,3 +45,92 @@ tr:hover {
     color: rgb(220, 77, 25);
     text-align: center;
 }
+
+
+/* *NEW CSS ADDED U MAY REMOVE */
+  
+  
+#filterForm {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-group {
+    flex: 1 1 auto;
+    margin-right: 10px;
+  }
+  
+  .form-group h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+  
+  #submitButton {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+  }
+  
+  #submitButton:hover {
+    background-color: #45a049;
+  }
+  .filter-head, .filter-head2{
+    color: white;
+  }
+
+  #filter-form-div{
+    display: flex;
+        flex-direction: row;
+        margin-left: 18rem;
+  }
+
+  .name-search{
+    margin-left: 25rem;
+  }
+.filter-head2{
+    margin-left: 10rem;
+    margin-top: -4.3rem;
+}
+  .locsearch{
+    margin-left: 28rem;
+  }
+
+  /* #filter-sbmt{
+    margin-left: 43rem;
+    margin-top: -2rem;
+    margin-bottom: 2rem;
+    z-index: 1000;
+  }
+  */
+
+#setname{
+    margin-left: 10rem;
+}
+#filterbtn{
+    margin-top: -2rem;
+    margin-left: 43rem;
+    margin-bottom: 2rem;
+} 
+
+#set-loc{
+    width: 60%;
+}
