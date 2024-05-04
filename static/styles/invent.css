@@ -20,3 +20,38 @@ th {
     background-color:red;
     color: black;
 }
+
+
+.reqform-cont {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.req-form-group {
+    margin-bottom: 20px;
+}
+.req-form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+.req-form-group select,
+.req-form-group input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+.req-form-group button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.req-form-group button:hover {
+    background-color: #45a049;
+}

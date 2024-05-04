@@ -39,8 +39,8 @@
         </div>
         
         <div class="form-group">
-            <label for="blood_amount">Amount of blood to donate:</label>
-            <input type="number" id="blood_amount" name="blood_amount" min="1" placeholder="Enter amount in ml" required>
+            <label for="blood_amount">Amount of blood to donate: (in units)</label>
+            <input type="number" id="blood_amount" name="blood_amount" min="1" placeholder="1 Unit = 450mL" required>
         </div>
         
         <div class="form-group">
@@ -59,7 +59,8 @@
                 <span class="consent-label">I give my consent for donating my blood.</span>
             </label>
         </div>
-        
+        <a href="http://example.com/{{ bank }}">Contact Blood Donation Camp</a>
+        <p style="color: black; font-size: smaller;"> *1 Unit of Blood = 450mL</p>
         <button type="submit" class="btn-submit">Submit</button>
     </form>
 </div>

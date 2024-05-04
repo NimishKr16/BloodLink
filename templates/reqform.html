@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %} 
+    Request Blood
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="../static/styles/invent.css">
+{% endblock %}
+
+{% block content %}
+
+    
+<div class="reqform-cont">
+        <h2>Blood Request Form</h2>
+        <form action="/submit_req" method="post">
+            <div class="req-form-group">
+                <label for="blood_group">Blood Group Requested:</label>
+                <select id="blood_group" name="blood_group" required>
+                    <option value="" disabled selected>Select Blood Group</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                </select>
+            </div>
+            <div class="req-form-group">
+                <label for="blood_quantity">Blood Quantity Required (in units):</label>
+                <input type="number" id="blood_quantity" name="blood_quantity" min="1" required>
+            </div>
+            <div class="req-form-group">
+                <label for="blood_bank">Blood Bank:</label>
+                <select id="blood_bank" name="blood_bank" required>
+                    <option value="" disabled selected>Select Blood Bank</option>
+                    <option value="1">Red Cross Society</option>
+                    <option value="2">Apollo Blood Bank</option>
+                    <option value="3">Nizam's Medical Sciences</option>
+                    <option value="4">Ruby Hall Clinic</option>
+                    <option value="5">JIPMER Blood Bank</option>
+                    <option value="6">Kokilaben Ambani Hospital</option>
+                    <option value="7">Christian Medical College</option>
+                    <option value="8">SGPGI Medical Sciences</option>
+                    <option value="9">Government Medical College</option>
+                    <option value="10">AlIMS Blood Bank</option>
+                    <option value="11">Gandhi Blood Bank</option>
+                    <option value="12">Mysore Blood Donors Forum</option>
+                    <option value="13">Rajasthan Blood Bank Society</option>
+                    <option value="14">Kerala Blood Donors Society</option>
+                    <option value="15">Bengaluru Blood Bank</option>
+                    <option value="16">Gujarat Blood Bank Association</option>
+                    <option value="17">Chandigarh Blood Sciences Madurai School of Medicine</option>
+                    <option value="18">Punjab Blood Donors Society</option>
+                    <option value="19">Goa Blood Bank</option>
+                    <option value="20">Gandhi Blood Bank</option>
+                    <option value="21">Mysore Blood Camp</option>
+                    <option value="22">Rajasthan School of Medicine</option>
+                    <option value="23">Kerala Blood Camp</option>
+                    <option value="24">Bengaluru Medical College</option>
+                    <option value="25">Gujarat Medical Association</option>
+                    <option value="26">Chandigarh Blood Bank</option>
+                    <option value="27">Madurai Blood Bank</option>
+                </select>
+            </div>
+            <div class="req-form-group">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

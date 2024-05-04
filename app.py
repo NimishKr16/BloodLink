@@ -116,6 +116,22 @@ class BloodInventory(db.Model):
             
         return total_blood_inventory
 
+# * --- Requests Table --- #
+class Requests(db.Model):
+    __tablename__ = 'requests'
+
+    RequestID = db.Column(db.Integer, primary_key=True)
+    RecipientID = db.Column(db.Integer, db.ForeignKey('recipients.RecipientID'), nullable=False)
+    BloodTypeRequested = db.Column(db.String(5), nullable=False)
+    BloodQuantityRequired = db.Column(db.Integer, nullable=False)
+    BloodBankID = db.Column(db.Integer, db.ForeignKey('blood_banks.BloodBankID'), nullable=False)
+
+    # Establishing relationships
+    recipient = db.relationship('Recipient', backref=db.backref('requests', lazy=True))
+    blood_bank = db.relationship('BloodBank', backref=db.backref('requests', lazy=True))
+
+with app.app_context():
+    db.create_all()
 # * -------------------------- APP ROUTES ------------------------ #
     
 # * ------------ Check Logged-in ------------ #
@@ -261,6 +277,7 @@ def donation_form():
     return render_template('postform.html')
 
 
+#  * --------- CONTACT DONOR FORM ----------- #
 @app.route("/con_donor", methods=["POST","GET"])
 def conndonor():
     username = is_logged_in()
@@ -274,6 +291,28 @@ def conndonor():
 def conDonorPostform():
     username = is_logged_in()
     return render_template('postform.html',username=username)
+
+
+@app.route("/reqBlood",methods=["GET"])
+def request_blood():
+    return render_template('reqform.html',username=is_logged_in())
+
+@app.route("/submit_req",methods=["POST","GET"])
+def reqSubmit():
+    username = is_logged_in()
+    Uid = User.query.filter_by(Username=username).first().UserID
+    recId = Recipient.query.filter_by(UserID=Uid).first().RecipientID
+    blood_group = request.form.get('blood_group')
+    quantity = int(request.form.get('blood_quantity'))
+    bankid = int(request.form.get('blood_bank'))
+    
+    new_req = Requests(RecipientID=recId,BloodBankID=bankid,BloodQuantityRequired=quantity,BloodTypeRequested=blood_group)
+    with app.app_context():
+        db.session.add(new_req)
+        db.session.commit()
+    return render_template('postform.html',username=username)
+        
+
 
 
 
@@ -361,7 +400,7 @@ def admin_login():
 @app.route('/admin/dashboard')
 def admin_dash():
     if 'admin_logged_in' in session and session['admin_logged_in']:
-        return render_template('admin_dash.html')
+        return render_template('admin_dash.html',username=is_logged_in())
     else:
         return "Must be logged in as an Admin!"  # Redirect to login if not logged in
 
@@ -382,7 +421,8 @@ def logout():
 
 
 
-
+with app.app_context():
+    db.create_all()
 # with app.app_context():
 #     db.session.add(admin1)
 #     db.session.add(admin2)
