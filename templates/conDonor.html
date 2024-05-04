@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Contact Donor
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="../static/styles/donor.css">
+{% endblock %}
+
+
+{% block content %}
+<div class="connectform">
+    <h2 style="color: white;">Contact A Donor</h2>
+    <form action="/submitCon_donor" method="post">
+        <div class="form-group-con_donor">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="{{ name }}" readonly>
+        </div>
+        <div class="form-group-con_donor">
+            <label for="email" style="color: white;">Email:</label>
+            <input type="text" id="email" name="email" value="{{ email }}" readonly>
+        </div>
+        <div class="form-group-con_donor">
+            <label for="contact" style="color: white;">Contact No.:</label>
+            <input type="number" id="contact" name="contact" required>
+        </div>
+        <label for="blood_group" style="color: white; padding: 0.5%; margin-bottom: 2rem;">Blood Group Required:</label>
+                <select id="blood_group" name="blood_group" required>
+                    <option value="" disabled selected>Select Blood Group</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                </select>
+        <div class="form-group-con_donor">
+            <label for="message" style="color: white; margin-top: 2rem;">Message:</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+        <div class="form-group-con_donor">
+            <button type="submit" >Submit</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

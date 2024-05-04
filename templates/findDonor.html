@@ -10,7 +10,7 @@
 
 {% block content %}
     <h1 id="donor-title" style="color: white;">List of Donors</h1>
-    <h2>Please find your nearest Donors</h2>
+    <h2 style="color: white; margin-left: 35rem;" >Please find your nearest Donors</h2>
     <table id="donor-table">
         <thead>
             <tr>
@@ -29,4 +29,9 @@
             {% endfor %}
         </tbody>
     </table>
+
+    <div class="connectwDon">
+       <h2 id="conh"> > Need Blood? Connect with a Donor</h2>
+       <button id="conbtn" onclick="window.location.href='/con_donor'"><a href="#" id="conref"> Contact a Donor</a></button>
+    </div>
 {% endblock %}

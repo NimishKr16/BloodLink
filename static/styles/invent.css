@@ -1,15 +1,22 @@
 #invent-table {
-    width: 100%;
+    width: 85%;
     border-collapse: collapse;
+    margin-left: 6rem;
+    margin-top: 5rem3     ;
 }
 .in-th, .in-td {
     padding: 12px 15px;
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
+
+.in-td{
+    color: white;
+}
 th {
     background-color: #f2f2f2;
 }
 .in-tr:hover {
-    background-color: #f5f5f5;
+    background-color:red;
+    color: black;
 }

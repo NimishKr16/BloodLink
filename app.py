@@ -260,7 +260,23 @@ def donation_form():
         db.session.commit()
     return render_template('postform.html')
 
-        
+
+@app.route("/con_donor", methods=["POST","GET"])
+def conndonor():
+    username = is_logged_in()
+    if username is None:
+        return render_template('templogin.html',title="Connect-Donor")
+    else:
+        email = User.query.filter_by(Username = username).first().Email
+        return render_template('conDonor.html',name=username, email=email,username=username)
+
+@app.route('/submitCon_donor',methods=["POST","GET"])
+def conDonorPostform():
+    username = is_logged_in()
+    return render_template('postform.html',username=username)
+
+
+
         
 # * ----------------- Signup  ------------------ #
 @app.route('/signup', methods=['GET', 'POST'])

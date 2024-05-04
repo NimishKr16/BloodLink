@@ -134,3 +134,61 @@ tr:hover {
 #set-loc{
     width: 60%;
 }
+
+.connectwDon{
+  background-color: rgb(206, 58, 206);
+  display: flex;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+#conbtn{
+width: 12rem;
+margin-left: 3rem;
+}
+
+#conref{
+  font-size: large;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+}
+
+#conh{
+  margin-left: 26rem;
+
+}
+
+.connectform {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 5rem;
+}
+.form-group-con_donor {
+  margin-bottom: 20px;
+}
+.form-group-con_donor label {
+  display: block;
+  margin-bottom: 5px;
+}
+.form-group-con_donor input[type="text"],
+.form-group-con_donor textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+.form-group-con_donor button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.form-group-con_donor button:hover {
+  background-color: #45a049;
+}
