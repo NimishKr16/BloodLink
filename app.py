@@ -139,10 +139,25 @@ def find_donor():
     donors = Donor.query.all()
     return render_template('findDonor.html',Donors=donors,username=username)
 
-@app.route('/donateBlood')
+@app.route('/donateBlood', methods=["GET","POST"])
 def donate():
     username = is_logged_in()
-    banks = BloodBank.query.all()
+    banks = None
+    if request.method == 'POST':
+        location = request.form.get('location')
+        name = request.form.get('name')
+
+        # Apply filters to the query
+        query = BloodBank.query
+        if location:
+            query = query.filter_by(Location=location)
+        if name:
+            query = query.filter_by(Name=name)
+
+        # Execute the filtered query
+        banks = query.all()
+    else:
+        banks = BloodBank.query.all()
     return render_template('donate.html',username=username,bloodbank=banks)
 
 
