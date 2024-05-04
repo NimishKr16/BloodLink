@@ -125,12 +125,14 @@ class Requests(db.Model):
     BloodTypeRequested = db.Column(db.String(5), nullable=False)
     BloodQuantityRequired = db.Column(db.Integer, nullable=False)
     BloodBankID = db.Column(db.Integer, db.ForeignKey('blood_banks.BloodBankID'), nullable=False)
-
+    request_date = db.Column(db.Date)
     # Establishing relationships
     recipient = db.relationship('Recipient', backref=db.backref('requests', lazy=True))
     blood_bank = db.relationship('BloodBank', backref=db.backref('requests', lazy=True))
 
 with app.app_context():
+    print("NEW ADD")
+    db.session.commit()
     db.create_all()
 # * -------------------------- APP ROUTES ------------------------ #
     
@@ -199,10 +201,17 @@ def appoint():
         return render_template('templogin.html',title="Login-Appointments")
     
     CurruserID = User.query.filter_by(Username=username).first().UserID
+    usertype = User.query.filter_by(Username=username).first().UserType
+    allReqs = None
+    if usertype == "recipient":
+        recipients = Recipient.query.filter_by(UserID=CurruserID).all()
+        recId = recipients[-1].RecipientID
+        allReqs = Requests.query.filter_by(RecipientID=recId)
     print(CurruserID)
     appts = Appointments.query.filter_by(user_id = CurruserID).all()
     print(appts)
-    return render_template('appoint.html',appointments=appts,username=username)
+    return render_template('appoint.html',appointments=appts,username=username,usertype=usertype,
+                           requestblood=allReqs)
 
 
 #  * --------- APPOINTMENT BOOKING ----------- #
@@ -292,7 +301,7 @@ def conDonorPostform():
     username = is_logged_in()
     return render_template('postform.html',username=username)
 
-
+# * --------------  REQUEST BLOOD -------------- #
 @app.route("/reqBlood",methods=["GET"])
 def request_blood():
     return render_template('reqform.html',username=is_logged_in())
@@ -305,8 +314,14 @@ def reqSubmit():
     blood_group = request.form.get('blood_group')
     quantity = int(request.form.get('blood_quantity'))
     bankid = int(request.form.get('blood_bank'))
+    appointment_date_str = request.form['appointment_date']
+
+    # Convert the HTML date string to a Python datetime.date object
+    appointment_date = datetime.strptime(appointment_date_str, '%Y-%m-%d').date()
     
-    new_req = Requests(RecipientID=recId,BloodBankID=bankid,BloodQuantityRequired=quantity,BloodTypeRequested=blood_group)
+    new_req = Requests(RecipientID=recId,BloodBankID=bankid,
+                       BloodQuantityRequired=quantity,BloodTypeRequested=blood_group,
+                       request_date=appointment_date)
     with app.app_context():
         db.session.add(new_req)
         db.session.commit()
@@ -314,9 +329,6 @@ def reqSubmit():
         
 
 
-
-
-        
 # * ----------------- Signup  ------------------ #
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -484,6 +496,8 @@ def print_appointments():
 # * ------------------------------------------------------------ #
     
 if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
     app.run(debug=True,port=5500)
 
 

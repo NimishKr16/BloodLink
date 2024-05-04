@@ -11,6 +11,7 @@
 
 {% block content %}
 <h1 style="color: white; margin: 5rem 2rem 3rem 32rem">Your Scheduled Appointments</h1>
+<h2 class="utype" style="color: white; margin: 1rem 2rem 3rem 34rem"> You are registered as a: {{ usertype }}</h2>
 <table id="appoint-table">
     <thead>
         <tr>
@@ -27,6 +28,19 @@
             <td>Pending</td>
         </tr>
         {% endfor %}
+        {% if usertype == "recipient" %}
+        {% for reqb in requestblood %}
+        <tr>
+            <td>{{ reqb.BloodBankID }}</td>
+            <td>{{ reqb.request_date }}</td>
+            <td>Pending</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+
     </tbody>
 </table>
+{% if usertype == "recipient" %}
+<button onclick="window.location.href='/reqBlood'" id="bloodreq-btn"><a href='#'>Request Blood</a></button>
+{% endif %}
 {% endblock %}

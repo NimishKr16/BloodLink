@@ -25,3 +25,8 @@ td{
 td:hover{
     color: red;
 }
+
+#bloodreq-btn{
+    margin-left: 40rem;
+    margin-top: 5rem;
+}

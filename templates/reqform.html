@@ -11,11 +11,11 @@
 {% block content %}
 
     
-<div class="reqform-cont">
-        <h2>Blood Request Form</h2>
+<div class="reqform-cont" style="margin-top: 5rem;">
+        <h2 style="color: white;">Blood Request Form</h2>
         <form action="/submit_req" method="post">
             <div class="req-form-group">
-                <label for="blood_group">Blood Group Requested:</label>
+                <label for="blood_group" style="color: white;">Blood Group Requested:</label>
                 <select id="blood_group" name="blood_group" required>
                     <option value="" disabled selected>Select Blood Group</option>
                     <option value="A+">A+</option>
@@ -29,11 +29,11 @@
                 </select>
             </div>
             <div class="req-form-group">
-                <label for="blood_quantity">Blood Quantity Required (in units):</label>
+                <label for="blood_quantity" style="color: white;">Blood Quantity Required (in units):</label>
                 <input type="number" id="blood_quantity" name="blood_quantity" min="1" required>
             </div>
             <div class="req-form-group">
-                <label for="blood_bank">Blood Bank:</label>
+                <label for="blood_bank" style="color: white;">Blood Bank:</label>
                 <select id="blood_bank" name="blood_bank" required>
                     <option value="" disabled selected>Select Blood Bank</option>
                     <option value="1">Red Cross Society</option>
@@ -64,6 +64,10 @@
                     <option value="26">Chandigarh Blood Bank</option>
                     <option value="27">Madurai Blood Bank</option>
                 </select>
+                <div class="req-form-group" style="margin-top: 1rem;">
+                    <label for="appointment_date" style="color: white;">Appointment Date:</label>
+                    <input type="date" id="appointment_date" name="appointment_date" required>
+                </div>
             </div>
             <div class="req-form-group">
                 <button type="submit">Submit</button>
