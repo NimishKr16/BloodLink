@@ -238,12 +238,14 @@ def profile(username):
         return render_template('templogin.html',title="Login-Profile")
     else:
         found_user = User.query.filter_by(Username=username).first()
+        print("-------- found user INFO --------", found_user)
         userInfo = None
         if found_user.UserType == 'donor':
             userInfo = Donor.query.filter_by(DonorID=found_user.UserID).first()
+            print("-------- USER INFO --------", userInfo)
         elif found_user.UserType == 'recipient':
-            userInfo = Recipient.query.filter_by(RecipientID=found_user.UserID).first()
-
+            userInfo = Recipient.query.filter_by(UserID=found_user.UserID).first()
+            print("-------- USER INFO --------", userInfo)
         return render_template('profile.html',username=currusername,
                                email=found_user.Email,
                                address=userInfo.Address, userType=found_user.UserType)
