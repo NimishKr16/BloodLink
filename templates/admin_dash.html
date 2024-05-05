@@ -12,4 +12,54 @@
 
   <h1 id="admin-head"> ADMIN DASHBOARD</h1>
 
+  <div id="reqtable">
+    <table id="request-details">
+      <h2 style="color: white;"> Recipient Request Details </h2>
+      <thead>
+          <tr style="color: rgb(0, 0, 0); font-weight: bolder; background-color: rgb(17, 185, 203);">
+              <th>Recipient ID</th>
+              <th>Blood Type Requested</th>
+              <th>Quantity Required (in units)</th>
+              <th>Request Date</th>
+          </tr>
+      </thead>
+      <tbody style="color: white; background-color: rgb(61, 59, 59);">
+          {% for request in Requests %}
+          <tr>
+              <td>{{ request.RecipientID}}</td>
+              <td>{{ request.BloodTypeRequested }}</td>
+              <td>{{ request.BloodQuantityRequired }}</td>
+              <td>{{ request.request_date }}</td>
+          </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+  </div>
+
+  <div id="dontable" style="margin-top: 4rem;">
+    <table id="request-details">
+      <h2 style="color: white;"> Donation History </h2>
+      <thead>
+          <tr style="color: rgb(0, 0, 0); font-weight: bolder; background-color: rgb(17, 185, 203);">
+              <th>Donor ID</th>
+              <th>Blood Type Donated</th>
+              <th>Quantity Donated</th>
+              <th>Donation Date</th>
+          </tr>
+      </thead>
+      <tbody style="color: white; background-color: rgb(61, 59, 59);">
+          {% for donation in Donations %}
+          <tr>
+              <td>{{ donation.donor_id}}</td>
+              <td>{{ donation.blood_type }}</td>
+              <td>{{ donation.quantity }}</td>
+              <td>{{ donation.donation_date }}</td>
+          </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+  
+  </div>
+  
+
 {% endblock %}

@@ -69,8 +69,7 @@ class Appointments(db.Model):
         return f"<{self.user_id} | {self.bank} | {self.appoint_date}>"
 
     
-with app.app_context():
-    db.create_all()
+
 # * --- Recipients Table --- #
 class Recipient(db.Model):
     __tablename__ = 'recipients'
@@ -130,10 +129,7 @@ class Requests(db.Model):
     recipient = db.relationship('Recipient', backref=db.backref('requests', lazy=True))
     blood_bank = db.relationship('BloodBank', backref=db.backref('requests', lazy=True))
 
-with app.app_context():
-    print("NEW ADD")
-    db.session.commit()
-    db.create_all()
+
 # * -------------------------- APP ROUTES ------------------------ #
     
 # * ------------ Check Logged-in ------------ #
@@ -193,7 +189,7 @@ def inventory():
     return render_template('inventory.html', username=username, inventory_with_totals=inventory_with_totals)
    
 
-
+#  * --------- APPOINTMENT SHOWCASING ----------- #
 @app.route('/appointments')
 def appoint():
     username = is_logged_in()
@@ -238,7 +234,7 @@ def profile(username):
         return render_template('templogin.html',title="Login-Profile")
     else:
         found_user = User.query.filter_by(Username=username).first()
-        print("-------- found user INFO --------", found_user)
+
         userInfo = None
         if found_user.UserType == 'donor':
             userInfo = Donor.query.filter_by(DonorID=found_user.UserID).first()
@@ -414,9 +410,14 @@ def admin_login():
 @app.route('/admin/dashboard')
 def admin_dash():
     if 'admin_logged_in' in session and session['admin_logged_in']:
-        return render_template('admin_dash.html',username=is_logged_in())
+        username = is_logged_in()
+        allRequests = Requests.query.all()
+        allDonations = Donations.query.all()
+        return render_template('admin_dash.html',
+                username=username,Requests=allRequests,
+                Donations=allDonations)
     else:
-        return "Must be logged in as an Admin!"  # Redirect to login if not logged in
+        return "<h1> Must be logged in as an Admin! </h1>" 
 
 
 # * ------------- LOGOUT ROUTE ---------------- #
