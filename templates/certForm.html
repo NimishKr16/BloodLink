@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Generate User Certificate
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="../static/styles/admin_dash.css">
+{% endblock %}
+
+
+{% block content %}
+<div class="certform-container" style="margin-top: 5rem;">
+    <h2 class="certform-title">Blood Donation Form</h2>
+    <form action="/generate_certificate" method="post">
+        <label for="user_name" class="certform-label">User Name:</label>
+        <select name="user_name" id="user_name" class="certform-select">
+            {% for user in users %}
+            <option value="{{ user.Username }}">{{ user.Username }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="blood_group" class="certform-label">Blood Group:</label>
+        <select name="blood_group" id="blood_group" class="certform-select">
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+        </select>
+
+        <label for="donation_amount" class="certform-label">Amount of Blood Donated (in units):</label>
+        <input type="number" id="donation_amount" name="donation_amount" class="certform-input" min="1">
+
+        <label for="donation_date" class="certform-label">Date of Donation:</label>
+        <input type="date" id="donation_date" name="donation_date" class="certform-input">
+
+        <label for="blood_bank" class="certform-label">Blood Bank Donated To:</label>
+        <select name="blood_bank" id="blood_bank" class="certform-select">
+            {% for bank in blood_banks %}
+            <option value="{{ bank.Name }}">{{ bank.Name }}</option>
+            {% endfor %}
+        </select>
+
+        <input type="submit" value="Generate Certificate" class="certform-submit">
+    </form>
+</div>
+{% endblock %}

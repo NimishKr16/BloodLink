@@ -174,10 +174,11 @@ complex_queries=[
 
 #query 4 - 	Retrieve Donor Information and Their Donation History along with Blood Bank Details:
     """
-    SELECT *
+    SELECT Donor.donor_id , Donations.blood_type
+    Donations.quantity, Donations.donation_date, BloodBank.BloodBankName
     FROM Donor
-    JOIN Donations ON Donor.DonorID = Donations.donor_id
-    JOIN BloodBank ON Donations.blood_bank_id = BloodBank.BloodBankID;
+    LEFT JOIN Donations ON Donor.DonorID = Donations.donor_id
+    RIGHT JOIN BloodBank ON Donations.blood_bank_id = BloodBank.BloodBankID;
     """
 ]
 #execute complex queries

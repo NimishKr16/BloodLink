@@ -419,6 +419,28 @@ def admin_dash():
     else:
         return "<h1> Must be logged in as an Admin! </h1>" 
 
+# * ------------- CERTIFICATE HANDLING ---------------- #
+@app.route("/certificate",methods=["POST","GET"])
+def certificate():
+    allUsers = User.query.all()
+    allBanks = BloodBank.query.all()
+    return render_template('certForm.html',users=allUsers,
+                           blood_banks=allBanks)
+
+@app.route("/generate_certificate",methods=["POST","GET"])
+def generateCert():
+    name = request.form.get('user_name')
+    print(name)
+    bloodGroup = request.form.get('blood_group')
+    qty = request.form.get('donation_amount')
+    bank = request.form.get('blood_bank')
+    date = request.form.get('donation_date')
+    usertype = User.query.filter_by(Username=name).first().UserType
+    print(usertype)
+    return render_template('cert.html',user_name=name,
+                           bank_name=bank, user_type=usertype,
+                           bloodgroup=bloodGroup, qty=qty, date=date,
+                           username=is_logged_in())
 
 # * ------------- LOGOUT ROUTE ---------------- #
 @app.route('/logout')
