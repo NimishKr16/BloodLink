@@ -12,7 +12,7 @@
 
   <h1 id="admin-head"> ADMIN DASHBOARD</h1>
 
-  <div id="reqtable">
+  <div id="reqtable" class="table-cont">
     <table id="request-details">
       <h2 style="color: white;"> Recipient Request Details </h2>
       <thead>
@@ -36,6 +36,7 @@
   </table>
   </div>
 
+  
   <div id="dontable" style="margin-top: 4rem;">
     <table id="request-details">
       <h2 style="color: white;"> Donation History </h2>
@@ -59,8 +60,34 @@
       </tbody>
   </table>
   </div>
-    <button><a style="text-decoration: none;" href= "{{ url_for('certificate') }}">Generate Certificate</a></button>
+
+
+  <div id="invTable" class="table-cont" style="margin-top: 4rem;">
+    <table id="inv-details">
+      <h2 style="color: white;"> Donation History </h2>
+      <thead>
+          <tr style="color: rgb(0, 0, 0); font-weight: bolder; background-color: rgb(17, 185, 203);">
+              <th>S.No</th>
+              <th>Blood Bank</th>
+              <th>Blood Group </th>
+              <th>Quantity</th>
+              <th>Donation Date</th>
+          </tr>
+      </thead>
+      <tbody style="color: white; background-color: rgb(61, 59, 59);">
+          {% for invent, bankname in inv %}
+          <tr>
+              <td>{{ invent.InventoryID}}</td>
+              <td>{{ bankname }}</td>
+              <td>{{ invent.BloodType }}</td>
+              <td>{{ invent.Quantity }}</td>
+              <td>{{ invent.DonationDate }}</td>
+          </tr>
+          {% endfor %}
+      </tbody>
+  </table>
   </div>
+    <button><a style="text-decoration: none;" href= "{{ url_for('certificate') }}">Generate Certificate</a></button>
   
 
 {% endblock %}

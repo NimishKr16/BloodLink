@@ -413,9 +413,17 @@ def admin_dash():
         username = is_logged_in()
         allRequests = Requests.query.all()
         allDonations = Donations.query.all()
+        allInv = BloodInventory.query.all()
+        banks = []
+        for inv in allInv:
+            bankid = inv.BloodBankID
+            currName = BloodBank.query.filter_by(BloodBankID=bankid).first().Name
+            banks.append(currName)
+
+        allInvInfo = zip(allInv,banks)
         return render_template('admin_dash.html',
                 username=username,Requests=allRequests,
-                Donations=allDonations)
+                Donations=allDonations,inv=allInvInfo)
     else:
         return "<h1> Must be logged in as an Admin! </h1>" 
 

@@ -156,9 +156,9 @@ complex_queries=[
 
 #query 2 - 	Get Blood Inventory Details with Donor Information and Recipient Requests:
     """
-    SELECT * 
+    SELECT Donor.Name, BloodBank.Name
     FROM BloodInventory 
-    JOIN Donor ON BloodInventory.BloodBankID = Donor.UserID 
+    LEFT JOIN Donor ON BloodInventory.BloodBankID = Donor.UserID 
     JOIN Recipient ON BloodInventory.BloodBankID = Recipient.UserID;
     """
 
